@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="最近工作上经常会用到argparse，这里做个简单的总结">
+<meta name="description" content="zip函数用户将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表。">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python之argparse模块">
-<meta property="og:url" content="http://yoursite.com/2019/07/23/python-3/index.html">
+<meta property="og:title" content="python之zip函数">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/python-4/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="最近工作上经常会用到argparse，这里做个简单的总结">
+<meta property="og:description" content="zip函数用户将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-23T00:03:34.542Z">
+<meta property="og:updated_time" content="2019-07-28T07:43:31.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python之argparse模块">
-<meta name="twitter:description" content="最近工作上经常会用到argparse，这里做个简单的总结">
+<meta name="twitter:title" content="python之zip函数">
+<meta name="twitter:description" content="zip函数用户将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/23/python-3/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/python-4/">
 
 
 
 
 
-  <title>python之argparse模块 | PiggyHouse</title>
+  <title>python之zip函数 | PiggyHouse</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/python-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/python-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="azhu">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python之argparse模块</h1>
+          <h1 class="post-title" itemprop="name headline">python之zip函数</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-23T07:50:47+08:00">
-                2019-07-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-28T15:36:51+08:00">
+                2019-07-28
               </time>
             
 
@@ -352,18 +352,14 @@
       
 
       
-        <p>最近工作上经常会用到argparse，这里做个简单的总结</p>
+        <p>zip函数用户将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表。</p>
 <a id="more"></a>
 
-<p>argparse 其实就是 <strong>命令行参数解析</strong> 模块</p>
-<p>使用方法很简单，如下所示：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">"xxxxx"</span>) <span class="comment">#初始化</span></span><br><span class="line">parser.add_argument(<span class="string">"--input"</span>, required=<span class="literal">True</span>, help=<span class="string">"input path"</span>) <span class="comment">#添加参数</span></span><br><span class="line"></span><br><span class="line">argments = parser.parse_args() <span class="comment">#解析参数</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"input path &#123;path&#125;"</span>.format(path=argments.input)) <span class="comment">#使用参数</span></span><br></pre></td></tr></table></figure>
+<p>如果各个迭代器的元素个数不一致，则返回列表长度与最短对象相同</p>
+<p>利用 * ，可以将元组解压为列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>zip(a,b)</span><br><span class="line">[(<span class="number">1</span>, <span class="number">4</span>), (<span class="number">2</span>, <span class="number">5</span>), (<span class="number">3</span>, <span class="number">6</span>)]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>z</span><br><span class="line">[(<span class="number">1</span>, <span class="number">4</span>), (<span class="number">2</span>, <span class="number">5</span>), (<span class="number">3</span>, <span class="number">6</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>zip(*z)   <span class="comment">#解压</span></span><br><span class="line">[(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>), (<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)]</span><br></pre></td></tr></table></figure>
 
-<p>关于ArgumentParser的声明如下（源码）：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArgumentParser</span><span class="params">(_AttributeHolder, _ActionsContainer)</span>:</span></span><br><span class="line">    <span class="string">"""Object for parsing command line strings into Python objects.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Keyword Arguments:</span></span><br><span class="line"><span class="string">        - prog -- The name of the program (default: sys.argv[0])</span></span><br><span class="line"><span class="string">        - usage -- A usage message (default: auto-generated from arguments)</span></span><br><span class="line"><span class="string">        - description -- A description of what the program does</span></span><br><span class="line"><span class="string">        - epilog -- Text following the argument descriptions</span></span><br><span class="line"><span class="string">        - parents -- Parsers whose arguments should be copied into this one</span></span><br><span class="line"><span class="string">        - formatter_class -- HelpFormatter class for printing help messages</span></span><br><span class="line"><span class="string">        - prefix_chars -- Characters that prefix optional arguments</span></span><br><span class="line"><span class="string">        - fromfile_prefix_chars -- Characters that prefix files containing</span></span><br><span class="line"><span class="string">            additional arguments</span></span><br><span class="line"><span class="string">        - argument_default -- The default value for all arguments</span></span><br><span class="line"><span class="string">        - conflict_handler -- String indicating how to handle conflicts</span></span><br><span class="line"><span class="string">        - add_help -- Add a -h/-help option</span></span><br><span class="line"><span class="string">        - allow_abbrev -- Allow long options to be abbreviated unambiguously</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,</span></span></span><br><span class="line"><span class="function"><span class="params">                 prog=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 usage=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 description=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 epilog=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 parents=[],</span></span></span><br><span class="line"><span class="function"><span class="params">                 formatter_class=HelpFormatter,</span></span></span><br><span class="line"><span class="function"><span class="params">                 prefix_chars=<span class="string">'-'</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 fromfile_prefix_chars=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 argument_default=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 conflict_handler=<span class="string">'error'</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 add_help=True,</span></span></span><br><span class="line"><span class="function"><span class="params">                 allow_abbrev=True)</span>:</span></span><br></pre></td></tr></table></figure>
-
-<p>使用这个模块，能让参数使用的更加明确，能让其他人知道应该怎么使用参数</p>
-<p>添加参数的时候，做好说明</p>
+<p>常常用于处理多列特征的时候会使用这个zip</p>
 
       
     </div>
@@ -394,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/14/sql-1/" rel="next" title="Mysql中文显示为问号的解决方案">
-                <i class="fa fa-chevron-left"></i> Mysql中文显示为问号的解决方案
+              <a href="/2019/07/23/python-3/" rel="next" title="python之argparse模块">
+                <i class="fa fa-chevron-left"></i> python之argparse模块
               </a>
             
           </div>
@@ -403,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/28/python-4/" rel="prev" title="python之zip函数">
-                python之zip函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
