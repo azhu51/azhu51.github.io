@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="PiggyHouse">
 <meta property="og:description" content="python的多进程模块在文件I/O操作的时候用的特别多，尽可能的发挥出多核系统的所有性能。 针对python的并发任务做个大体的总结。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-04T13:34:30.626Z">
+<meta property="og:updated_time" content="2019-08-11T13:08:36.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python之多进程 multiprocessing">
 <meta name="twitter:description" content="python的多进程模块在文件I/O操作的时候用的特别多，尽可能的发挥出多核系统的所有性能。 针对python的并发任务做个大体的总结。">
@@ -441,6 +441,32 @@
 <p>q.put(os.getpid()) 每一个不同的进程会将自己的pid保存到队列中</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>threads不是真正意义上的并发</p>
 <p>multiprocessing提供了线程安全的方法</p>
+<h2 id="附加"><a href="#附加" class="headerlink" title="附加"></a>附加</h2><h3 id="Queue和Pipe"><a href="#Queue和Pipe" class="headerlink" title="Queue和Pipe"></a>Queue和Pipe</h3><p>Pipe输出结果也是先进先出，跟Queue的原理一样</p>
+<p>如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pipe, Process</span><br><span class="line"></span><br><span class="line">conn1, conn2 = Pipe()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    conn1.send(i)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    print(conn2.recv())</span><br><span class="line"></span><br><span class="line">Process(target=f1).start()</span><br><span class="line">Process(target=f2).start()</span><br></pre></td></tr></table></figure>
+
+<p>Queue如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process,Pipe</span><br><span class="line"></span><br><span class="line">queue = Queue()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    queue.put(i)</span><br><span class="line">   </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    print(queue.get())</span><br><span class="line">    </span><br><span class="line">Process(target=f1).start()</span><br><span class="line">Process(target=f2).start()</span><br></pre></td></tr></table></figure>
+
+<p>输出都是</p>
+<p>0</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>具体的区别：</p>
+<blockquote>
+<p>For passing messages one can use <a href="https://docs.python.org/3/library/multiprocessing.html?highlight=queue#multiprocessing.Pipe" target="_blank" rel="noopener">Pipe()</a> (for a connection between two processes) or a <a href="https://docs.python.org/3/library/multiprocessing.html?highlight=queue#multiprocessing.Queue" target="_blank" rel="noopener">Queue()</a> (which allows multiple producers and consumers).</p>
+</blockquote>
+<p>Pipe用于两个进程通信</p>
+<p>Queue用户多个（两个以及以上）间的进程通信</p>
+<blockquote>
+<p><strong>When to use them</strong></p>
+<p>If you need more than two points to communicate, use a <a href="http://docs.python.org/library/multiprocessing.html#multiprocessing.Queue" target="_blank" rel="noopener"><code>Queue()</code></a>.</p>
+<p>If you need absolute performance, a <a href="http://docs.python.org/library/multiprocessing.html#multiprocessing.Pipe" target="_blank" rel="noopener"><code>Pipe()</code></a> is much faster because <code>Queue()</code> is built on top of <code>Pipe()</code>.</p>
+</blockquote>
+<p>参考<a href="https://stackoverflow.com/questions/8463008/multiprocessing-pipe-vs-queue" target="_blank" rel="noopener">Pipe vs Queue</a></p>
 <p>参考文章：</p>
 <p><a href="https://www.linuxjournal.com/content/multiprocessing-python" target="_blank" rel="noopener">Multiprocessing in Python</a></p>
 
@@ -613,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#multiprocessing-Basics"><span class="nav-number">1.</span> <span class="nav-text">multiprocessing Basics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有何不同"><span class="nav-number">2.</span> <span class="nav-text">有何不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Queues"><span class="nav-number">3.</span> <span class="nav-text">Queues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#multiprocessing-Basics"><span class="nav-number">1.</span> <span class="nav-text">multiprocessing Basics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有何不同"><span class="nav-number">2.</span> <span class="nav-text">有何不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Queues"><span class="nav-number">3.</span> <span class="nav-text">Queues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#附加"><span class="nav-number"></span> <span class="nav-text">附加</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Queue和Pipe"><span class="nav-number">1.</span> <span class="nav-text">Queue和Pipe</span></a></li></ol></li></div>
             
 
           </div>
