@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="shell,">
+  <meta name="keywords" content="tensorflow,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="最近在写shell脚本的时候多次用到日期获取，这里做个总结">
-<meta name="keywords" content="shell">
+<meta name="description" content="主要了解下freeze_graph的用法 以及了解下freeze_graph_test的一些相关知识（据说具有很好的学习价值） freeze_graph.py源码链接： https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph.py freeze_graph_test.py源码">
+<meta name="keywords" content="tensorflow">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shell之日期获取">
-<meta property="og:url" content="http://yoursite.com/2019/08/04/shell-1/index.html">
+<meta property="og:title" content="tensorflow之freeze_gragh">
+<meta property="og:url" content="http://yoursite.com/2019/08/12/tensorflow-2/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="最近在写shell脚本的时候多次用到日期获取，这里做个总结">
+<meta property="og:description" content="主要了解下freeze_graph的用法 以及了解下freeze_graph_test的一些相关知识（据说具有很好的学习价值） freeze_graph.py源码链接： https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph.py freeze_graph_test.py源码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-04T08:02:22.327Z">
+<meta property="og:updated_time" content="2019-08-12T13:13:20.607Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shell之日期获取">
-<meta name="twitter:description" content="最近在写shell脚本的时候多次用到日期获取，这里做个总结">
+<meta name="twitter:title" content="tensorflow之freeze_gragh">
+<meta name="twitter:description" content="主要了解下freeze_graph的用法 以及了解下freeze_graph_test的一些相关知识（据说具有很好的学习价值） freeze_graph.py源码链接： https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph.py freeze_graph_test.py源码">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/04/shell-1/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/12/tensorflow-2/">
 
 
 
 
 
-  <title>shell之日期获取 | PiggyHouse</title>
+  <title>tensorflow之freeze_gragh | PiggyHouse</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/04/shell-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/12/tensorflow-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="azhu">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">shell之日期获取</h1>
+          <h1 class="post-title" itemprop="name headline">tensorflow之freeze_gragh</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-04T15:41:14+08:00">
-                2019-08-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-12T18:23:45+08:00">
+                2019-08-12
               </time>
             
 
@@ -352,14 +352,89 @@
       
 
       
-        <p>最近在写shell脚本的时候多次用到日期获取，这里做个总结</p>
+        <p>主要了解下freeze_graph的用法</p>
+<p>以及了解下freeze_graph_test的一些相关知识（据说具有很好的学习价值）</p>
+<p>freeze_graph.py源码链接：</p>
+<p><a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph.py" target="_blank" rel="noopener">https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph.py</a></p>
+<p>freeze_graph_test.py源码链接：</p>
+<p><a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph_test.py" target="_blank" rel="noopener">https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph_test.py</a></p>
 <a id="more"></a>
 
+<h3 id="tf模型的基本介绍"><a href="#tf模型的基本介绍" class="headerlink" title="tf模型的基本介绍"></a>tf模型的基本介绍</h3><p>Tensorflow所有的文件格式都是基于Protocol Buffer，即protobuf</p>
+<p>在文本文件中定义数据结构，protobuf工具生成C、Python和其他语言的类，这些类可以友好的加载、保存和方位数据</p>
+<p>Tensorflow里的计算基础是Graph对象</p>
+<p>它可以存储网络节点，每一个节点代表一个操作，并作为输入和输出相互链接在一起</p>
+<p>GraphDef 类是ProtoBuf根据</p>
+<p><a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/graph.proto" target="_blank" rel="noopener">https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/graph.proto</a></p>
+<p>以此为基础定义创建的对象。Protobuf工具会解析此文本文件，并生成用户加载、存储和操控图定义的代码。</p>
+<p>将文件加载到 grapf_def 变量中，就可以访问其中的数据</p>
+<p>可以使用下面的代码来遍历这些节点，基本上重要的部分都是存储在节点中了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph_def = graph_pb2.GraphDef()</span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> graph_def.node</span><br></pre></td></tr></table></figure>
 
+<p>每一个节点都是一个在<a href>node_def.proto</a>定义的NodeDef对象，这些节点是Tensorflow图的基本构建块，每一个构建块都定义了一个操作以及其输入连接。NodeDef的成员如下所示：</p>
+<ul>
+<li>name 节点的唯一标识符，该标识符不会被途中的任何其他节点使用</li>
+<li>op  定义了要运行的操作，比如Add、MatMul、Conv2D</li>
+<li>input  字符串列表，每个字符串都是另一个节点的名称，比如两个输入[“input_1:0”,”input_2:0”]</li>
+<li>device  定义了在分布式环境中运行的位置</li>
+<li>attr  包含某个节点的所有属性的键值对存储区</li>
+</ul>
+<p>以上成员都可以通过 node.name  node.op等来访问</p>
+<p>因为tf在训练期间权重通常不会存储在文件格式内，而是保存在单独的检查点中，并且图中的Variable操作可在初始化操作时加载最新的值。</p>
+<p>在部署到生产环境时，使用单独的文件往往不是很方便，因此我们需要一个脚本  <font color="red">freeze_graph.py</font></p>
+<p>将这些检查点、文件冻结到一个文件中。</p>
+<p>具体操作就是加载GraphDef，从最新的检查点文件中提取所有变量的值，然后将每个Variable操作替换为Const（其中包含存储在其属性中的权重的数值数据）。然后，它会剥离所有未用于前向推断的无关节点，并将生成的GraphDef保存到输出文件中。</p>
+<h3 id="freeze-graph-py"><a href="#freeze-graph-py" class="headerlink" title="freeze_graph.py"></a>freeze_graph.py</h3><blockquote>
+<p>Converts checkpoint variables into Const ops in a standalone GraphDef file.<br>This script is designed to take a GraphDef proto, a SaverDef proto, and a set of<br>variable values stored in a checkpoint file, and output a GraphDef with all of<br>the variable ops converted into const ops containing the values of the<br>variables.<br>It’s useful to do this when we need to load a single file in C++, especially in<br>environments like mobile or embedded where we may not have access to the<br>RestoreTensor ops and file loading calls that they rely on.</p>
+</blockquote>
+<p>先了解下参数：</p>
+<ul>
+<li>input_graph  模型文件，二进制pb或者文本meta，用input_binary来区分</li>
+<li>input_saver   需要加载的Tensorflow saver文件</li>
+<li>input_checkpoint  检查点文件，用于模型恢复变量值</li>
+<li>checkpoint_version  变量文件的格式 （saver_pb2.SaverDef.V1 or saver_pb2.SaverDef.V2）</li>
+<li>output_graph  冻结完成后的写入路径</li>
+<li>input_binary  输入文件是否是二进制  True Or False</li>
+<li>output_node_names  输出节点的名字，多个节点用逗号分隔</li>
+<li>restore_op_name  已废弃</li>
+<li>filename_tensor_name  已废弃</li>
+<li>clear_devices  默认是True，是否清楚训练节点的设备</li>
+<li>initializer_nodes 需要初始化的节点</li>
+<li>variable_names_whitelist  指定需要恢复的变量</li>
+<li>variable_names_blacklist  指定不用恢复的变量</li>
+<li>input_meta_graph  需要加载的MetaGraphDef</li>
+<li>input_saved_model_dir   SavedModel文件和变量的路径</li>
+<li>saved_model_tags  加载MetaGraphDef中的tag组，逗号分隔（MetaGraphDef中可以用tags来区分不同的计算图）</li>
+</ul>
+<p>首先解析checkpoint版本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> flags.checkpoint_version == <span class="number">1</span>:</span><br><span class="line">	checkpoint_version = saver_pb2.SaverDef.V1</span><br><span class="line"><span class="keyword">elif</span> flags.checkpoint_version == <span class="number">2</span>:</span><br><span class="line">  checkpoint_version = saver_pb2.SaverDef.V2</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="keyword">raise</span> ValueError(<span class="string">"Invalid checkpoint version (must be '1' or '2'): %d"</span> %</span><br><span class="line">                     flags.checkpoint_version)</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">获取昨天</span><br><span class="line">yesterday=`date -d yesterday +%Y%m%d`</span><br><span class="line"></span><br><span class="line">获取明天</span><br><span class="line">tomorrow=`date -d tomorrow +%Y%m%d`</span><br><span class="line"></span><br><span class="line">获取两天后</span><br><span class="line">twodayslater=`date -d '-2 day ago' +%Y%m%d`</span><br><span class="line"></span><br><span class="line">获取两天前</span><br><span class="line">twodaysbefore=`date -d '2 day ago' +%Y%m%d`</span><br><span class="line"></span><br><span class="line">获取上一年</span><br><span class="line">lastyear=`date -d 'last year' +%Y`</span><br><span class="line"></span><br><span class="line">获取下一年</span><br><span class="line">nextyear=`date -d 'next year' +%Y`</span><br><span class="line"></span><br><span class="line">获取当前</span><br><span class="line">cur=`date +%Y%m%d`</span><br></pre></td></tr></table></figure>
-
-<p>可以看出来如果需要对日期操作 则需要添加 -d 命令</p>
+<p>两种checkpoint的保存方法如下：</p>
+<table>
+<thead>
+<tr>
+<th>v1</th>
+<th>v2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>model.ckpt-0001</td>
+<td>model.ckpt-0001.index</td>
+</tr>
+<tr>
+<td>model.ckpt-0001.meta</td>
+<td>model.ckpt-0001.meta</td>
+</tr>
+<tr>
+<td></td>
+<td>model.ckpt-0001.data-00000-of-00001</td>
+</tr>
+</tbody></table>
+<p>然后解析输入的graphDef：</p>
+<p>continue…</p>
+<p>参考：</p>
+<p><a href="https://www.tensorflow.org/guide/extend/model_files#freezing" target="_blank" rel="noopener">https://www.tensorflow.org/guide/extend/model_files#freezing</a></p>
+<p><a href="https://blog.csdn.net/czq7511/article/details/72452985" target="_blank" rel="noopener">https://blog.csdn.net/czq7511/article/details/72452985</a></p>
 
       
     </div>
@@ -377,7 +452,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/shell/" rel="tag"># shell</a>
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
           
         </div>
       
@@ -390,8 +465,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/28/linux-1/" rel="next" title="linux下判断linux的位数">
-                <i class="fa fa-chevron-left"></i> linux下判断linux的位数
+              <a href="/2019/08/11/tensorflow-1/" rel="next" title="tensorflow之tf.Session()">
+                <i class="fa fa-chevron-left"></i> tensorflow之tf.Session()
               </a>
             
           </div>
@@ -399,10 +474,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/04/linux-2/" rel="prev" title="gcc&g++命令中的-l和-L">
-                gcc&g++命令中的-l和-L <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -454,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -515,6 +595,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tf模型的基本介绍"><span class="nav-number">1.</span> <span class="nav-text">tf模型的基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#freeze-graph-py"><span class="nav-number">2.</span> <span class="nav-text">freeze_graph.py</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
