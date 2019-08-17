@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="PiggyHouse">
 <meta property="og:description" content="前几天同事在群里发了一个推荐系统的一个总结图，感觉还不错，做个记录">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-17T02:02:15.622Z">
+<meta property="og:updated_time" content="2019-08-17T02:12:38.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐系统的一点小总结">
 <meta name="twitter:description" content="前几天同事在群里发了一个推荐系统的一个总结图，感觉还不错，做个记录">
@@ -364,7 +364,7 @@
 <th>特点</th>
 <th>约束</th>
 <th>典型任务</th>
-<th>举例</th>
+<th align="left">举例</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -374,7 +374,34 @@
 <td>1、可以处理大数据量<br>2、可以运行批量任务<br>3、低成本尝试多种算法<br>4、可加机器提升效率</td>
 <td>1、无法及时捕获最新的用户兴趣<br>2、无法给用户最及时的推荐</td>
 <td>1、批量机器学习算法<br>2、批量计算推荐结果<br>3、挖掘用户标签<br>4、物品的内容分析</td>
-<td>1、矩阵分解，学习得到用户隐因子向量和物品隐因子向量<br>2、学习500棵GBDT决策树<br>3、以GBDT输出作为特征学习了LR模型参数</td>
+<td align="left">1、矩阵分解，学习得到用户隐因子向量和物品隐因子向量<br>2、学习500棵GBDT决策树<br>3、以GBDT输出作为特征学习了LR模型参数</td>
+</tr>
+<tr>
+<td>近线</td>
+<td>实时</td>
+<td>非实时</td>
+<td>1、能捕捉到用户最新兴趣<br>2、能运行较复杂的学习算法<br>3、能比较及时给用户响应</td>
+<td>1、能处理的数据量有限<br>2、部分依赖离线计算的结果<br>3、和离线无缝结合有一定的复杂度</td>
+<td>1、用最新事件补充召回推荐结果<br>2、小批量样本更新模型参数</td>
+<td align="left">1、用户新评分的电影计算相似电影补进离线推荐结果<br>2、根据最新浏览提取新的标签补充到用户标签中</td>
+</tr>
+<tr>
+<td>在线</td>
+<td>实时</td>
+<td>实时</td>
+<td>1、对场景信息敏感<br>2、立即满足用户<br>3、运行简单算法和逻辑</td>
+<td>1、响应时间是硬要求<br>2、要准备降级服务的推荐结果<br>3、计算复杂度有限</td>
+<td>1、过滤逻辑<br>2、运营手段<br>3、融合排序<br>4、多样性提升</td>
+<td align="left">1、取出近线阶段的推荐电影和物品的内容特征、用户特征<br>2、运行GBDT模型得到的500个新特征，运行LR模型输出融合排序<br>3、过滤掉看过的，过滤掉已被删除的<br>4、根据多样性要求去掉高度相似的电影<br>5、强插一些当季运营活动需要的到指定位置<br>6、输出推荐结果</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td align="left"></td>
 </tr>
 </tbody></table>
 
