@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="PiggyHouse">
 <meta property="og:description" content="tf.ConfigProto()主要是用来配置session运行的一些参数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-25T02:05:01.787Z">
+<meta property="og:updated_time" content="2019-08-25T02:07:02.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tensorflow之tf.ConfigProto()的使用">
 <meta name="twitter:description" content="tf.ConfigProto()主要是用来配置session运行的一些参数">
@@ -380,6 +380,8 @@
 <p>或者</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=<span class="number">0.4</span>)</span><br><span class="line">config = tf.ConfigProto(gpu_options=gpu_options)</span><br><span class="line">session = tf.Session(config=config)</span><br></pre></td></tr></table></figure>
 
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/dcrmg/article/details/79091941" target="_blank" rel="noopener">https://blog.csdn.net/dcrmg/article/details/79091941</a></p>
 
       
     </div>
