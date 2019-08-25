@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="leetcode-contest,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一次玩周赛，成绩真是不理想，四道题只AC了一道，排名  412/1340，还需努力！">
+<meta name="keywords" content="leetcode-contest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode-151场周赛总结">
+<meta property="og:url" content="http://yoursite.com/2019/08/25/leetcode-2/index.html">
+<meta property="og:site_name" content="PiggyHouse">
+<meta property="og:description" content="第一次玩周赛，成绩真是不理想，四道题只AC了一道，排名  412/1340，还需努力！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-25T07:06:00.205Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leetcode-151场周赛总结">
+<meta name="twitter:description" content="第一次玩周赛，成绩真是不理想，四道题只AC了一道，排名  412/1340，还需努力！">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/25/leetcode-2/">
+
+
+
+
+
+  <title>leetcode-151场周赛总结 | PiggyHouse</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PiggyHouse</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/25/leetcode-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="azhu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PiggyHouse">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">leetcode-151场周赛总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-25T14:50:00+08:00">
+                2019-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法题/" itemprop="url" rel="index">
+                    <span itemprop="name">算法题</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>第一次玩周赛，成绩真是不理想，四道题只AC了一道，排名  412/1340，还需努力！</p>
+<a id="more"></a>
+
+<p>链接：<a href="https://leetcode-cn.com/contest/weekly-contest-151" target="_blank" rel="noopener">https://leetcode-cn.com/contest/weekly-contest-151</a></p>
+<h3 id="查询无效交易"><a href="#查询无效交易" class="headerlink" title="查询无效交易"></a>查询无效交易</h3><p><a href="https://leetcode-cn.com/contest/weekly-contest-151/problems/invalid-transactions/" target="_blank" rel="noopener">https://leetcode-cn.com/contest/weekly-contest-151/problems/invalid-transactions/</a></p>
+<p>这道题难度easy，开始题意不理解，绕了很多弯路，后面想清楚了，出现了超时的现象，但是整个代码解法和大神的应该差不多。</p>
+<p>附上chensuim的题解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">invalidTransactions</span><span class="params">(self, transactions)</span>:</span></span><br><span class="line">        ts = []</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> transactions:</span><br><span class="line">            name, stamp, amount, city = t.split(<span class="string">','</span>)</span><br><span class="line">            stamp = int(stamp)</span><br><span class="line">            amount = int(amount)</span><br><span class="line">            ts.append([name,stamp,amount,city,t])</span><br><span class="line">        ans = set()</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> ts:</span><br><span class="line">            <span class="keyword">if</span> t[<span class="number">2</span>] &gt; <span class="number">1000</span>:</span><br><span class="line">                ans.add(t[<span class="number">4</span>])</span><br><span class="line">            <span class="keyword">for</span> o <span class="keyword">in</span> ts:</span><br><span class="line">                <span class="keyword">if</span> t[<span class="number">0</span>] == o[<span class="number">0</span>] <span class="keyword">and</span> abs(t[<span class="number">1</span>] - o[<span class="number">1</span>]) &lt;= <span class="number">60</span> <span class="keyword">and</span> t[<span class="number">3</span>] != o[<span class="number">3</span>]:</span><br><span class="line">                    ans.add(t[<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> list(ans)</span><br></pre></td></tr></table></figure>
+
+<p>可以学习的地方在于split</p>
+<p>之前split往往会一项项赋值，显得代码非常臃肿，可以直接一行搞定</p>
+<h3 id="比较字符串最小字母出现频次"><a href="#比较字符串最小字母出现频次" class="headerlink" title="比较字符串最小字母出现频次"></a>比较字符串最小字母出现频次</h3><p>唯一一道AC的题目，但是代码显得不简洁，比如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> str <span class="keyword">in</span> queries:</span><br><span class="line">  qres.append(self.func(str))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> str <span class="keyword">in</span> words:</span><br><span class="line">  wres.append(self.func(str))</span><br></pre></td></tr></table></figure>
+
+<p>完全可以使用map</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> bisect</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution2</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count</span><span class="params">(self, word)</span>:</span></span><br><span class="line">        c = collections.Counter(word)</span><br><span class="line">        k = c.keys()</span><br><span class="line">        key = min(k)</span><br><span class="line">        <span class="keyword">return</span> c[key]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numSmallerByFrequency</span><span class="params">(self, queries, words)</span>:</span></span><br><span class="line">        ws = map(self.count, words)</span><br><span class="line">        ws.sort()</span><br><span class="line">        qs = map(self.count, queries)</span><br><span class="line">        ans = []</span><br><span class="line"></span><br><span class="line">        print(qs)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> q <span class="keyword">in</span> qs:</span><br><span class="line">            print(ws, q)</span><br><span class="line">            index = bisect.bisect(ws, q)</span><br><span class="line">            <span class="keyword">print</span> index</span><br><span class="line">            ans.append(len(ws) - index)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<p>collections.Counter、map、bisect 这三个用法可以学习下</p>
+<h3 id="从链表中删去总和值为0的连续节点"><a href="#从链表中删去总和值为0的连续节点" class="headerlink" title="从链表中删去总和值为0的连续节点"></a>从链表中删去总和值为0的连续节点</h3><p>链表的题目已经很久没做了，想法是先把链表转换成list，再做操作</p>
+<p>大神题解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_list</span><span class="params">(h)</span>:</span></span><br><span class="line">    ans = []</span><br><span class="line">    <span class="keyword">while</span> h:</span><br><span class="line">        ans.append(h.val)</span><br><span class="line">        h = h.next</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_link</span><span class="params">(l)</span>:</span></span><br><span class="line">    n = ListNode(<span class="literal">None</span>)</span><br><span class="line">    h = n</span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> l:</span><br><span class="line">        n.next = ListNode(node)</span><br><span class="line">        n = n.next</span><br><span class="line">    <span class="keyword">return</span> h.next</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeZeroSumSublists</span><span class="params">(self, head)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type head: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = to_list(head)</span><br><span class="line">        ans = list()</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> l:</span><br><span class="line">            ans.append(n)</span><br><span class="line">            s = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> reversed(xrange(len(ans))):</span><br><span class="line">                s += ans[k]</span><br><span class="line">                <span class="keyword">if</span> s == <span class="number">0</span>:</span><br><span class="line">                    ans = ans[:k]</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> to_link(ans)</span><br></pre></td></tr></table></figure>
+
+<p>巧妙之处是在于ans=ans[:k]，如果末尾到起点方向k的节点相加为0，则取1:k的节点，抛弃相加为0的节点</p>
+<p>然后reversed可以留意学习下</p>
+<h3 id="餐盘栈"><a href="#餐盘栈" class="headerlink" title="餐盘栈"></a>餐盘栈</h3><p>使用基础数据结构来构造一个新的数据结构，想法有点类似于维护一个list，list里每个都是一个stack</p>
+<p>实现起来会有点复杂</p>
+<p>大神题解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DinnerPlates</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, capacity)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type capacity: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.c = capacity</span><br><span class="line">        self.stack = []</span><br><span class="line">        self.n = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, val)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type val: int</span></span><br><span class="line"><span class="string">        :rtype: None</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.n:</span><br><span class="line">            index = heapq.heappop(self.n)</span><br><span class="line">            <span class="keyword">if</span> index &gt;= len(self.stack):</span><br><span class="line">                self.stack.append([])</span><br><span class="line">                index = len(self.stack) - <span class="number">1</span></span><br><span class="line">            self.stack[index].append(val)</span><br><span class="line">            <span class="keyword">if</span> len(self.stack[index]) &lt; self.c:</span><br><span class="line">                heapq.heappush(self.n, index)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.stack.append([])</span><br><span class="line">            self.stack[<span class="number">-1</span>].append(val)</span><br><span class="line">            self.n.append(len(self.stack) - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">while</span> self.stack <span class="keyword">and</span> <span class="keyword">not</span> self.stack[<span class="number">-1</span>]:</span><br><span class="line">            self.stack.pop()</span><br><span class="line">        <span class="keyword">if</span> self.stack:</span><br><span class="line">            <span class="keyword">if</span> len(self.stack[<span class="number">-1</span>]) == self.c:</span><br><span class="line">                heapq.heappush(self.n, len(self.stack)<span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">return</span> self.stack[<span class="number">-1</span>].pop()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">popAtStack</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type index: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> index &lt; len(self.stack):</span><br><span class="line">            s = self.stack[index]</span><br><span class="line">            <span class="keyword">if</span> s:</span><br><span class="line">                <span class="keyword">if</span> len(s) == self.c:</span><br><span class="line">                    heapq.heappush(self.n, index)</span><br><span class="line">                <span class="keyword">return</span> s.pop()</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Your DinnerPlates object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"># obj = DinnerPlates(capacity)</span></span><br><span class="line"><span class="comment"># obj.push(val)</span></span><br><span class="line"><span class="comment"># param_2 = obj.pop()</span></span><br><span class="line"><span class="comment"># param_3 = obj.popAtStack(index)</span></span><br></pre></td></tr></table></figure>
+
+<p>heapq这个库可以学习下</p>
+<p>希望下次周三名次能提升！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/leetcode-contest/" rel="tag"># leetcode-contest</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/25/tensorflow-3/" rel="next" title="tensorflow之tf.ConfigProto()的使用">
+                <i class="fa fa-chevron-left"></i> tensorflow之tf.ConfigProto()的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">azhu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询无效交易"><span class="nav-number">1.</span> <span class="nav-text">查询无效交易</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较字符串最小字母出现频次"><span class="nav-number">2.</span> <span class="nav-text">比较字符串最小字母出现频次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从链表中删去总和值为0的连续节点"><span class="nav-number">3.</span> <span class="nav-text">从链表中删去总和值为0的连续节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#餐盘栈"><span class="nav-number">4.</span> <span class="nav-text">餐盘栈</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">azhu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
