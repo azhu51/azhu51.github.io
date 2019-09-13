@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="推荐算法,">
 
 
 
@@ -79,17 +79,22 @@
 
 
 
-<meta name="description" content="多多总结多多益善">
+<meta name="description" content="转自公众号链接： https://mp.weixin.qq.com/s/kLKGbpxy1Fqp9zHC3mxL3g 对其中的重点内容做一个总结">
+<meta name="keywords" content="推荐算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello Blog">
-<meta property="og:url" content="http://yoursite.com/2019/07/08/hello-world/index.html">
+<meta property="og:title" content="推荐系统中排序算法的发展历程总结">
+<meta property="og:url" content="http://yoursite.com/2019/09/13/resys-3/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="多多总结多多益善">
+<meta property="og:description" content="转自公众号链接： https://mp.weixin.qq.com/s/kLKGbpxy1Fqp9zHC3mxL3g 对其中的重点内容做一个总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-08T08:17:39.009Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/13/resys-3/1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/09/13/resys-3/2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/09/13/resys-3/3.jpeg">
+<meta property="og:updated_time" content="2019-09-13T08:50:12.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello Blog">
-<meta name="twitter:description" content="多多总结多多益善">
+<meta name="twitter:title" content="推荐系统中排序算法的发展历程总结">
+<meta name="twitter:description" content="转自公众号链接： https://mp.weixin.qq.com/s/kLKGbpxy1Fqp9zHC3mxL3g 对其中的重点内容做一个总结">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/13/resys-3/1.jpeg">
 
 
 
@@ -119,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/08/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/13/resys-3/">
 
 
 
 
 
-  <title>Hello Blog | PiggyHouse</title>
+  <title>推荐系统中排序算法的发展历程总结 | PiggyHouse</title>
   
 
 
@@ -262,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/13/resys-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="azhu">
@@ -279,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello Blog</h1>
+          <h1 class="post-title" itemprop="name headline">推荐系统中排序算法的发展历程总结</h1>
         
 
         <div class="post-meta">
@@ -291,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-08T16:17:39+08:00">
-                2019-07-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-13T16:11:58+08:00">
+                2019-09-13
               </time>
             
 
@@ -301,6 +306,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -329,7 +356,58 @@
       
 
       
-        <p>多多总结<br>多多益善</p>
+        <p>转自公众号链接：</p>
+<p><a href="https://mp.weixin.qq.com/s/kLKGbpxy1Fqp9zHC3mxL3g" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/kLKGbpxy1Fqp9zHC3mxL3g</a></p>
+<p>对其中的重点内容做一个总结</p>
+<a id="more"></a>
+
+<p>推荐系统中的数据特点：</p>
+<p>1、离散数据为主、连续数据为辅，所以排序算法就是要解决<font color="red">大规模离散特征</font>的学习</p>
+<p>2、样本收集有限、物品在场景中出现次数有限，而且物品的生命周期短，所以收集到的样本数据有限，所以在推荐系统中的排序算法的参数空间不能太大，否则会出现欠拟合</p>
+<p>3、特征稀疏，<font color="red">高度稀疏</font>，比如item数量由几十万个，但用户常看的item就几十个，所以排序算法中需要压缩<font color="red">特征空间</font></p>
+<p>4、不同场景下、不同上下文数据差异明显</p>
+<p>推荐系统中的排序算法从90年代至今，主要是以下几个阶段：</p>
+<h4 id="人工特征-线性模型（专家系统）"><a href="#人工特征-线性模型（专家系统）" class="headerlink" title="人工特征+线性模型（专家系统）"></a>人工特征+线性模型（专家系统）</h4><p>当年流行的一个词：专家系统</p>
+<img src="/2019/09/13/resys-3/1.jpeg" width="400" height="450">
+
+<p>主要特点：</p>
+<p>1、原始输入特征量级在 百千万 之间</p>
+<p>2、处理后的特征量级在万、十万、百万、千万级别都有</p>
+<p>3、模型简单、参数空间小、性能高、效果好</p>
+<p>4、效果提升需要依赖人工特征建设，基于对业务的理解，通过大量的人工经验和数据分析挖掘有效的特征组合</p>
+<h4 id="自动特征交叉-线性模型阶段（增强记忆）"><a href="#自动特征交叉-线性模型阶段（增强记忆）" class="headerlink" title="自动特征交叉+线性模型阶段（增强记忆）"></a>自动特征交叉+线性模型阶段（增强记忆）</h4><ul>
+<li>2010提出FM</li>
+<li>2014提出FFM</li>
+<li>2014提出GBDT+LR</li>
+<li>2014提出XGBoost</li>
+</ul>
+<img src="/2019/09/13/resys-3/2.jpeg" width="800" height="500">
+
+
+
+<p>特点：</p>
+<p>1、<font color="red">监督自动</font>进行二阶、高阶特征交叉，这样就可以记忆各种有效的特征组合，用什么特征组合可以更好的区分label标签</p>
+<p>2、通过参数可以控制特征交叉的参数空间，比如控制FM隐向量的长度、树模型的棵数和深度</p>
+<p>3、联合学习启蒙，联合低阶、二阶、高阶进行联合训练学习，主要目的是为了在同一个空间中强化记忆每一个特征或者特征组合对预测结果的正向或者负向影响权重</p>
+<p>4、效果提升显著，而且只需对个别超参数进行人工调整，简单高效</p>
+<h4 id="深度学习（深度发展）"><a href="#深度学习（深度发展）" class="headerlink" title="深度学习（深度发展）"></a>深度学习（深度发展）</h4><ul>
+<li>2016年提出FNN、PNN、NFM、AFM</li>
+<li>2016年提出Wide&amp;Deep</li>
+<li>2016年Youtube提出DNN</li>
+<li>2017年提出DeepFM</li>
+</ul>
+<img src="/2019/09/13/resys-3/3.jpeg" width="580" height="500">
+
+
+
+<p>1、离散特征处理向embedding空间发展，采用低维空间更加合理的表达特征（比如：休闲游戏、射击游戏、购物美妆可以用8维向量表示，而且休闲游戏向量与射击游戏向量距离比较近，射击游戏向量与购物美妆向量距离较远），这里即对特征空间进行了压缩，也对离散特征进行了合理的表示</p>
+<p>2、在各个阶段通过降维减少参数空间量级</p>
+<p>3、挖掘上下文与目标之间的关系</p>
+<p>4、采用DNN进行高阶特征挖掘</p>
+<p>5、融合低阶、二阶、高阶进行联合学习，低阶和二阶主要强化记忆能力，高阶主要强化泛化能力</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>这三个阶段从特征表示来看主要是</p>
+<p>从单一数据特征表示 –&gt; 多元数据特征表示  –&gt;  低维稠密的向量空间表示</p>
+<p>发展方向就是如何对人、物、行为等数据进行向量表示，基于此向量表示再进行与目标之间的相关性学习。</p>
 
       
     </div>
@@ -345,6 +423,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/推荐算法/" rel="tag"># 推荐算法</a>
+          
+        </div>
+      
 
       
       
@@ -354,15 +438,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/09/13/leetcode-5/" rel="next" title="leetcode-1025-除数博弈">
+                <i class="fa fa-chevron-left"></i> leetcode-1025-除数博弈
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/08/HKEX-1/" rel="prev" title="港股心得体会-20190708">
-                港股心得体会-20190708 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -414,8 +498,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -475,6 +568,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#人工特征-线性模型（专家系统）"><span class="nav-number">1.</span> <span class="nav-text">人工特征+线性模型（专家系统）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动特征交叉-线性模型阶段（增强记忆）"><span class="nav-number">2.</span> <span class="nav-text">自动特征交叉+线性模型阶段（增强记忆）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深度学习（深度发展）"><span class="nav-number">3.</span> <span class="nav-text">深度学习（深度发展）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
