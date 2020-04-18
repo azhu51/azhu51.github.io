@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="PiggyHouse">
 <meta property="og:description" content="我真是日了狗了，本次只AC了一题，成绩排名 755 / 1297 哎，还是要多练，对于题目的敏感性不够，容易想偏了 看了各位大神的答案，本周的主题应该是递归">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-15T10:53:09.349Z">
+<meta property="og:updated_time" content="2019-09-15T10:54:56.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode-154场周赛总结">
 <meta name="twitter:description" content="我真是日了狗了，本次只AC了一题，成绩排名 755 / 1297 哎，还是要多练，对于题目的敏感性不够，容易想偏了 看了各位大神的答案，本周的主题应该是递归">
@@ -394,6 +394,9 @@
 <h4 id="查找集群内的关键链接"><a href="#查找集群内的关键链接" class="headerlink" title="查找集群内的关键链接"></a>查找集群内的关键链接</h4><p><a href="https://leetcode-cn.com/contest/weekly-contest-154/problems/critical-connections-in-a-network/" target="_blank" rel="noopener">https://leetcode-cn.com/contest/weekly-contest-154/problems/critical-connections-in-a-network/</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">criticalConnections</span><span class="params">(self, n, connections)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :type connections: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        graph = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> xrange(n)]</span><br><span class="line">        <span class="comment">#构造图结构，graph[i]表示节点i的出度</span></span><br><span class="line">        <span class="keyword">for</span> u, v <span class="keyword">in</span> connections:</span><br><span class="line">            graph[u].append(v)</span><br><span class="line">            graph[v].append(u)</span><br><span class="line">        </span><br><span class="line">        seen = [<span class="literal">False</span>] * n</span><br><span class="line">        time = [<span class="number">-1</span>] * n</span><br><span class="line">        low = [<span class="number">-1</span>] * n</span><br><span class="line">        t = [<span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">        self.ans = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(node, parent = None)</span>:</span></span><br><span class="line">            seen[node] = <span class="literal">True</span></span><br><span class="line">            time[node] = low[node] = t[<span class="number">0</span>]</span><br><span class="line">            t[<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> nei <span class="keyword">in</span> graph[node]:</span><br><span class="line">                <span class="keyword">if</span> nei == parent: <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">if</span> seen[nei]:</span><br><span class="line">                    low[node] = min(low[node], time[nei])</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dfs(nei, node)</span><br><span class="line">                    low[node] = min(low[nei], low[node])</span><br><span class="line">                    <span class="keyword">if</span> low[nei] &gt; time[node]:</span><br><span class="line">                        self.ans.append([node, nei])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> node, s <span class="keyword">in</span> enumerate(seen):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">                dfs(node)</span><br><span class="line">        <span class="keyword">return</span> self.ans</span><br></pre></td></tr></table></figure>
 
+<p>关键词Tarjan算法</p>
+<p>相关链接：</p>
+<p><a href="https://www.cnblogs.com/yanyiming10243247/p/9294160.html" target="_blank" rel="noopener">https://www.cnblogs.com/yanyiming10243247/p/9294160.html</a></p>
 
       
     </div>
@@ -433,6 +436,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/18/resys-deeplearning-note-1/" rel="prev" title="推荐系统深度学习读书笔记-1">
+                推荐系统深度学习读书笔记-1 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -509,7 +516,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -531,7 +538,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -584,7 +591,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
