@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="paper,">
+  <meta name="keywords" content="读书笔记,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="这个算法主要是分为5个模块：  数据预处理 初始化树 与dnn模型联合训练 产出的结果通过kmeans聚合成树 再次训练  下面的内容就围绕着这五个模块来展开">
-<meta name="keywords" content="paper">
+<meta name="description" content="第二章前深度学习时代–推荐系统的进化之路协同过滤组  ItemCF：物品协同过滤 UserCF：用户协同过滤 MF（矩阵分解）：为了使协同过滤更好的处理稀疏共现矩阵问题、增强模型的泛化能力  逻辑回归组（协同过滤组仅使用用户的显性、隐形反馈信息，LR组能更好的融合 用户、物品、上下文特征）  LR LS-PLM：大规模分片线性模型  因子分解机组（加入了二阶特征，使模型具有特征组合的能力）  FM">
+<meta name="keywords" content="读书笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《Learing Tree-based Deep Model for Recommender System》阅读笔记">
-<meta property="og:url" content="http://yoursite.com/2019/07/10/tdm-paper-read/index.html">
+<meta property="og:title" content="推荐系统深度学习读书笔记-2">
+<meta property="og:url" content="http://yoursite.com/2020/04/19/resys-deeplearning-note-2/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="这个算法主要是分为5个模块：  数据预处理 初始化树 与dnn模型联合训练 产出的结果通过kmeans聚合成树 再次训练  下面的内容就围绕着这五个模块来展开">
+<meta property="og:description" content="第二章前深度学习时代–推荐系统的进化之路协同过滤组  ItemCF：物品协同过滤 UserCF：用户协同过滤 MF（矩阵分解）：为了使协同过滤更好的处理稀疏共现矩阵问题、增强模型的泛化能力  逻辑回归组（协同过滤组仅使用用户的显性、隐形反馈信息，LR组能更好的融合 用户、物品、上下文特征）  LR LS-PLM：大规模分片线性模型  因子分解机组（加入了二阶特征，使模型具有特征组合的能力）  FM">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-29T02:09:35.972Z">
+<meta property="og:updated_time" content="2020-04-19T07:32:11.541Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《Learing Tree-based Deep Model for Recommender System》阅读笔记">
-<meta name="twitter:description" content="这个算法主要是分为5个模块：  数据预处理 初始化树 与dnn模型联合训练 产出的结果通过kmeans聚合成树 再次训练  下面的内容就围绕着这五个模块来展开">
+<meta name="twitter:title" content="推荐系统深度学习读书笔记-2">
+<meta name="twitter:description" content="第二章前深度学习时代–推荐系统的进化之路协同过滤组  ItemCF：物品协同过滤 UserCF：用户协同过滤 MF（矩阵分解）：为了使协同过滤更好的处理稀疏共现矩阵问题、增强模型的泛化能力  逻辑回归组（协同过滤组仅使用用户的显性、隐形反馈信息，LR组能更好的融合 用户、物品、上下文特征）  LR LS-PLM：大规模分片线性模型  因子分解机组（加入了二阶特征，使模型具有特征组合的能力）  FM">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/10/tdm-paper-read/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/19/resys-deeplearning-note-2/">
 
 
 
 
 
-  <title>《Learing Tree-based Deep Model for Recommender System》阅读笔记 | PiggyHouse</title>
+  <title>推荐系统深度学习读书笔记-2 | PiggyHouse</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/tdm-paper-read/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/resys-deeplearning-note-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="azhu">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《Learing Tree-based Deep Model for Recommender System》阅读笔记</h1>
+          <h1 class="post-title" itemprop="name headline">推荐系统深度学习读书笔记-2</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T15:18:09+08:00">
-                2019-07-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T13:53:05+08:00">
+                2020-04-19
               </time>
             
 
@@ -352,20 +352,144 @@
       
 
       
-        <p>这个算法主要是分为5个模块：</p>
+        <h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><h4 id="前深度学习时代–推荐系统的进化之路"><a href="#前深度学习时代–推荐系统的进化之路" class="headerlink" title="前深度学习时代–推荐系统的进化之路"></a>前深度学习时代–推荐系统的进化之路</h4><p>协同过滤组</p>
 <ul>
-<li>数据预处理</li>
-<li>初始化树</li>
-<li>与dnn模型联合训练</li>
-<li>产出的结果通过kmeans聚合成树</li>
-<li>再次训练</li>
+<li>ItemCF：物品协同过滤</li>
+<li>UserCF：用户协同过滤</li>
+<li>MF（矩阵分解）：为了使协同过滤更好的处理稀疏共现矩阵问题、增强模型的泛化能力</li>
 </ul>
-<p>下面的内容就围绕着这五个模块来展开</p>
-<a id="more"></a>
-
-<p>###数据预处理</p>
-<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><p>论文链接：<a href="https://arxiv.org/pdf/1801.02294.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1801.02294.pdf</a></p>
-<p>代码地址：<a href="https://github.com/alibaba/x-deeplearning/tree/master/xdl-algorithm-solution/TDM/" target="_blank" rel="noopener">https://github.com/alibaba/x-deeplearning/tree/master/xdl-algorithm-solution/TDM/</a></p>
+<p>逻辑回归组（协同过滤组仅使用用户的显性、隐形反馈信息，LR组能更好的融合 用户、物品、上下文特征）</p>
+<ul>
+<li>LR</li>
+<li>LS-PLM：大规模分片线性模型</li>
+</ul>
+<p>因子分解机组（加入了二阶特征，使模型具有特征组合的能力）</p>
+<ul>
+<li>FM -&gt; FFM（域感知因子分解机）</li>
+</ul>
+<p>组合模型</p>
+<ul>
+<li>GBDT+LR</li>
+</ul>
+<h4 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h4><p>计算相似度的几种方法：</p>
+<ul>
+<li>余弦相似度：夹角越小，证明余弦相似度越大，两个用户越相似</li>
+<li>皮尔逊相关系数：用用户平均分对独立评分进行修正，减小了用户评分偏置的影响</li>
+<li>其他比如 <a href="https://bigdata-madesimple.com/implementing-the-five-most-popular-similarity-measures-in-python/" target="_blank" rel="noopener">https://bigdata-madesimple.com/implementing-the-five-most-popular-similarity-measures-in-python/</a></li>
+</ul>
+<p>UserCF缺点：</p>
+<ul>
+<li>用户数远大于物品数，导致矩阵计算开销大，复杂度会以 $n^2$ 速度增长</li>
+<li>用户行为数据稀疏，准确性低 </li>
+</ul>
+<p>UserCF适用于发现热点、以及跟踪热点的趋势，如新闻</p>
+<p>ItemCF适用于兴趣变化较为稳定，如购物网站、视频网站</p>
+<p><font color="red">协同过滤的问题</font> ：</p>
+<ul>
+<li>泛化能力较弱，两个热门itemm相似无法推广到其他物品上</li>
+<li>热门商品具有很强的头部效应，容易跟大量物品产生相似，而尾部的物品由于特征向量稀疏，导致大量尾部的物品很少被推荐</li>
+<li>头部效应明显，稀疏向量的处理能力弱</li>
+<li>因此MF技术提出</li>
+</ul>
+<p>矩阵分解：</p>
+<ul>
+<li><p>共现矩阵的基础上，增加模型的泛化能力</p>
+</li>
+<li><p>使用更稠密的隐向量表示用户和物品，挖掘用户和物品的隐含兴趣和隐含特征</p>
+</li>
+<li><p>隐向量是通过<font color="red">分解协同过滤生成的共现矩阵</font>得到的</p>
+</li>
+<li><p>m * n维矩阵分解成 m * k 和 k * n 的矩阵，k为隐向量的维度</p>
+</li>
+<li><p>k越小，隐向量包含的信息越少，泛化能力越强；k越大，隐向量包含的信息越多，泛化能力越小</p>
+</li>
+<li><p>隐向量的生成过程是对共现矩阵进行全局拟合的过程，因此隐向量其实是全局信息生成，有更强的泛化能力</p>
+</li>
+</ul>
+<p>矩阵分解的方法：</p>
+<ul>
+<li><p>特征值分解（Eigen Decomposition）：只作用于方阵，不适用于分解用户-物品矩阵</p>
+</li>
+<li><p>奇异值分解（Singular Value Decomposition，SVD）：要求原始矩阵为稠密，而实际情况比较稀疏，需要对缺失值进行填充；计算复杂度高，实际情况计算开销过大</p>
+</li>
+<li><p>梯度下降（Gradient Descent）</p>
+<blockquote>
+<p>正则化加入loss function保持模型稳定</p>
+<p>对于加入了正则化的loss function来说，模型权重值越大，损失函数越大</p>
+<p>梯度下降是朝着损失小的方向发展，</p>
+<p>加入正则项，希望在不影响原模型和数据集之间的损失前提下，使模型的权重变小，权重变小自然会让模型的输出波动更小，从而让模型更加稳定</p>
+</blockquote>
+</li>
+</ul>
+<p>MF优点：</p>
+<ul>
+<li>泛化能力强</li>
+<li>空间复杂度低：$n^2$ 降低到（n+m）*k</li>
+<li>更好的拓展性和灵活性</li>
+</ul>
+<p>但是这几个方法都没有很好的处理 用户、物品、上下文 这些特征</p>
+<h4 id="逻辑回归算法"><a href="#逻辑回归算法" class="headerlink" title="逻辑回归算法"></a>逻辑回归算法</h4><p>常用的训练方法：</p>
+<ul>
+<li><p>梯度下降法</p>
+<blockquote>
+<p>一阶最优化算法</p>
+<p>找一个函数的局部最小值，必须沿函数上当前点对应梯度的反方向进行规定步长距离的迭代搜索</p>
+<p>梯度的性质：如果实值函数F(x)在点x处可微且有定义，那么函数F(x)在点x出沿着梯度相反的方向-$\bigtriangledown$F(x)下降最快</p>
+<p>优化某模型目标函数时候，只需对目标函数进行求导，得到梯度的方向，沿梯度反方向下降，并迭代过程直至寻找到局部最小点</p>
+</blockquote>
+</li>
+<li><p>牛顿法</p>
+</li>
+<li><p>拟牛顿法</p>
+</li>
+</ul>
+<p><font color="red">LR的优势：</font></p>
+<ul>
+<li><p>数字含义上的支撑</p>
+</li>
+<li><p>可解释性强</p>
+<blockquote>
+<p>根据权重可以判断哪些特征比较重要</p>
+</blockquote>
+</li>
+<li><p>工程化需要</p>
+</li>
+</ul>
+<p><font color="red">LR的局限性：</font></p>
+<ul>
+<li>表达能力不强，无法进行特征交叉、特征筛选操作</li>
+</ul>
+<h4 id="因子分解机模型"><a href="#因子分解机模型" class="headerlink" title="因子分解机模型"></a>因子分解机模型</h4><p>POLY2模型</p>
+<ul>
+<li>对特征进行暴力组合，对所有特征进行了两两交叉</li>
+<li>导致 原本非常稀疏的特征向量 变的 更加稀疏</li>
+<li>权重参数由 n 上升到 $n^2$， 复杂度变得更大了</li>
+</ul>
+<p>FM模型（隐向量特征交叉）</p>
+<ul>
+<li>为每个特征学习了一个隐权重向量（latent vector）</li>
+<li>在特征交叉时，使用两个特征隐向量的内积作为交叉特征的权重</li>
+<li>FM是将MF思想进行了进一步扩展，应用在了除物品、用户之外的所有特征上</li>
+<li>权重参数从 $n^2$ 减少到了nk </li>
+<li>相比较POLY2，丢失了一些具体特征组合的记忆能力，但泛化能力更强</li>
+<li>捕捉非线性关系</li>
+</ul>
+<p>FFM模型：加入了特征域的概念</p>
+<p>理论上来说FM也适用于高阶特征交叉，但是复杂度无法在工程方面接受</p>
+<h4 id="GBDT-LR"><a href="#GBDT-LR" class="headerlink" title="GBDT+LR"></a>GBDT+LR</h4><p>GBDT通过逐一生成决策子树的方式生成整个树林</p>
+<p>生成新子树的过程是利用样本标签值与当前树林预测值之间的残差，构建新的子树</p>
+<p>多棵回归树组成</p>
+<p>每棵树生成的过程是一棵标准的回归树生成过程</p>
+<p><font color="red">缺点</font>：容易产生过拟合，以及GBDT的特征转换方式实际上丢失了大量特征的数值信息</p>
+<p>LS-PLM</p>
+<ul>
+<li>对样本进行分片，分片中使用LR进行CTR预估</li>
+<li>具有样本分片的能力，能够挖掘出数据中的非线性模式，省去人工样本处理和特征工程</li>
+<li>稀疏性强</li>
+</ul>
+<p>LR、FM都比较适用于高维稀疏特征，GBDT不适合？</p>
+<p>原始特征通过GBDT转变成高维稀疏特征</p>
+<p><a href="https://www.zhihu.com/question/35821566" target="_blank" rel="noopener">https://www.zhihu.com/question/35821566</a></p>
 
       
     </div>
@@ -383,7 +507,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/paper/" rel="tag"># paper</a>
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
           
         </div>
       
@@ -396,8 +520,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/09/python-1/" rel="next" title="python之map函数">
-                <i class="fa fa-chevron-left"></i> python之map函数
+              <a href="/2020/04/18/resys-deeplearning-note-1/" rel="next" title="推荐系统深度学习读书笔记-1">
+                <i class="fa fa-chevron-left"></i> 推荐系统深度学习读书笔记-1
               </a>
             
           </div>
@@ -405,10 +529,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/10/python-2/" rel="prev" title="python之repr函数">
-                python之repr函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -540,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关链接"><span class="nav-number">1.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章"><span class="nav-number">1.</span> <span class="nav-text">第二章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前深度学习时代–推荐系统的进化之路"><span class="nav-number">1.1.</span> <span class="nav-text">前深度学习时代–推荐系统的进化之路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协同过滤算法"><span class="nav-number">1.2.</span> <span class="nav-text">协同过滤算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑回归算法"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑回归算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#因子分解机模型"><span class="nav-number">1.4.</span> <span class="nav-text">因子分解机模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GBDT-LR"><span class="nav-number">1.5.</span> <span class="nav-text">GBDT+LR</span></a></li></ol></li></ol></div>
             
 
           </div>
