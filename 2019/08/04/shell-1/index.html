@@ -354,11 +354,7 @@
       
         <p>最近在写shell脚本的时候多次用到日期获取，这里做个总结</p>
 <a id="more"></a>
-
-
-
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">获取昨天</span><br><span class="line">yesterday=`date -d yesterday +%Y%m%d`</span><br><span class="line"></span><br><span class="line">获取明天</span><br><span class="line">tomorrow=`date -d tomorrow +%Y%m%d`</span><br><span class="line"></span><br><span class="line">获取两天后</span><br><span class="line">twodayslater=`date -d '-2 day ago' +%Y%m%d`</span><br><span class="line"></span><br><span class="line">获取两天前</span><br><span class="line">twodaysbefore=`date -d '2 day ago' +%Y%m%d`</span><br><span class="line"></span><br><span class="line">获取上一年</span><br><span class="line">lastyear=`date -d 'last year' +%Y`</span><br><span class="line"></span><br><span class="line">获取下一年</span><br><span class="line">nextyear=`date -d 'next year' +%Y`</span><br><span class="line"></span><br><span class="line">获取当前</span><br><span class="line">cur=`date +%Y%m%d`</span><br></pre></td></tr></table></figure>
-
 <p>可以看出来如果需要对日期操作 则需要添加 -d 命令</p>
 
       

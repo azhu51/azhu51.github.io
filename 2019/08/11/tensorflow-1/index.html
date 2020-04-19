@@ -354,16 +354,13 @@
       
         <p>tensorflow的学习之路对于我来说还是比较坎坷的，这里先从 tf.Session()开始了解。</p>
 <a id="more"></a>
-
 <p>Session是Tensorflow为了控制、和输出文件的执行语句</p>
 <p>运行session.run()才可以获得你要得知的运算结果，或者是你所要运算的部分。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">m1 = tf.constant([[<span class="number">3</span>,<span class="number">3</span>]])</span><br><span class="line">m2 = tf.constat([[<span class="number">2</span>],</span><br><span class="line">                 [<span class="number">2</span>]])</span><br><span class="line"></span><br><span class="line">product = tf.matmul(m1, m2)</span><br></pre></td></tr></table></figure>
-
 <p>因为product不是直接计算的步骤</p>
 <p>需要使用session来激活product并得到计算结果。</p>
 <p>有以下两种方式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># method 1</span></span><br><span class="line">sess = tf.Session()</span><br><span class="line">result = sess.run(product)</span><br><span class="line">print(result)</span><br><span class="line">sess.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># method 2</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	result2 = sess.run(product)</span><br><span class="line">	print(result2)</span><br></pre></td></tr></table></figure>
-
 <p>如果使用第一种，记得要close session</p>
 <p>第二种就类似文件操作，使用with来进行</p>
 <p>参考链接：</p>

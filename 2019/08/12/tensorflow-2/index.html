@@ -359,7 +359,6 @@
 <p>freeze_graph_test.py源码链接：</p>
 <p><a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph_test.py" target="_blank" rel="noopener">https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph_test.py</a></p>
 <a id="more"></a>
-
 <h3 id="tf模型的基本介绍"><a href="#tf模型的基本介绍" class="headerlink" title="tf模型的基本介绍"></a>tf模型的基本介绍</h3><p>Tensorflow所有的文件格式都是基于Protocol Buffer，即protobuf</p>
 <p>在文本文件中定义数据结构，protobuf工具生成C、Python和其他语言的类，这些类可以友好的加载、保存和方位数据</p>
 <p>Tensorflow里的计算基础是Graph对象</p>
@@ -370,7 +369,6 @@
 <p>将文件加载到 grapf_def 变量中，就可以访问其中的数据</p>
 <p>可以使用下面的代码来遍历这些节点，基本上重要的部分都是存储在节点中了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph_def = graph_pb2.GraphDef()</span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> graph_def.node</span><br></pre></td></tr></table></figure>
-
 <p>每一个节点都是一个在<a href>node_def.proto</a>定义的NodeDef对象，这些节点是Tensorflow图的基本构建块，每一个构建块都定义了一个操作以及其输入连接。NodeDef的成员如下所示：</p>
 <ul>
 <li>name 节点的唯一标识符，该标识符不会被途中的任何其他节点使用</li>
@@ -408,8 +406,8 @@
 </ul>
 <p>首先解析checkpoint版本：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> flags.checkpoint_version == <span class="number">1</span>:</span><br><span class="line">	checkpoint_version = saver_pb2.SaverDef.V1</span><br><span class="line"><span class="keyword">elif</span> flags.checkpoint_version == <span class="number">2</span>:</span><br><span class="line">  checkpoint_version = saver_pb2.SaverDef.V2</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="keyword">raise</span> ValueError(<span class="string">"Invalid checkpoint version (must be '1' or '2'): %d"</span> %</span><br><span class="line">                     flags.checkpoint_version)</span><br></pre></td></tr></table></figure>
-
 <p>两种checkpoint的保存方法如下：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -417,7 +415,8 @@
 <th>v2</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>model.ckpt-0001</td>
 <td>model.ckpt-0001.index</td>
 </tr>
@@ -429,7 +428,9 @@
 <td></td>
 <td>model.ckpt-0001.data-00000-of-00001</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>然后解析输入的graphDef：</p>
 <p>continue…</p>
 <p>参考：</p>

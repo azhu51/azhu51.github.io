@@ -357,15 +357,9 @@
         <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>建表的时候使用的编码为utf8，前端传入中文的时候，数据库里的显示为？？？</p>
 <p>与开发人员确认前后端编码一致，那问题出在何处?</p>
 <a id="more"></a>
-
-
-
 <h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>使用 show variables like ‘char%’;</p>
 <p>查看各类编码格式，如下所示:</p>
-<img src="/2019/07/14/sql-1/mysql.jpeg" width="500" height="320" align="center">
-
-
-
+<p><img src="/2019/07/14/sql-1/mysql.jpeg" width="500" height="320" align="center"></p>
 <p></p>
 
 <p>这是改完后的结果，修改之前是latin1</p>
@@ -381,7 +375,6 @@
 <p>[client]<br>default-character-set=utf8<br>[mysqld]<br>character-set-server=utf8</p>
 <p>最后重启mysql  </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br></pre></td></tr></table></figure>
-
 <p>搞定！</p>
 <p>数据库里？？？的中文能正常显示！</p>
 

@@ -354,9 +354,7 @@
       
         <p>之前写python遇到一个情况，需要调用不同项目下的python文件，后面找到了解决方案</p>
 <a id="more"></a>
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#比如要调用/path/to/application/app/folder/file.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.insert(<span class="number">1</span>,<span class="string">'/path/to/application/app/folder'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> file</span><br></pre></td></tr></table></figure>
-
 <p>就是讲需要添加的python文件加入到sys中，这样python就能默认调用了</p>
 <p>参考链接：</p>
 <p><a href="https://stackoverflow.com/questions/4383571/importing-files-from-different-folder" target="_blank" rel="noopener">https://stackoverflow.com/questions/4383571/importing-files-from-different-folder</a></p>

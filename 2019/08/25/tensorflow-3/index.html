@@ -354,12 +354,9 @@
       
         <p>tf.ConfigProto()主要是用来配置session运行的一些参数</p>
 <a id="more"></a>
-
 <p>比如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config = tf.ConfigProto(device_count=&#123;<span class="string">'GPU'</span>: GPU_NUM&#125;, allow_soft_placement=<span class="literal">True</span>)</span><br><span class="line">config.gpu_options.allow_growth = <span class="literal">True</span> </span><br><span class="line"></span><br><span class="line">strategy = tf.contrib.distribute.MirroredStrategy(num_gpus = GPU_NUM)</span><br><span class="line"></span><br><span class="line">run_config = tf.estimator.RunConfig(train_distribute=strategy,</span><br><span class="line">                                        save_checkpoints_steps=<span class="number">100</span>,</span><br><span class="line">                                        session_config=config)</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config = tf.ConfigProto(allow_soft_placement=<span class="literal">True</span>, allow_soft_placement=<span class="literal">True</span>)</span><br><span class="line">config.gpu_options.per_process_gpu_memory_fraction = <span class="number">0.4</span>  <span class="comment">#占用40%显存</span></span><br><span class="line">sess = tf.Session(config=config)</span><br></pre></td></tr></table></figure>
-
 <p>log_device_placement=True：记录设备指派情况</p>
 <ul>
 <li>设置log_device_placement=True，可以获取到op和tensor被指派到哪个设备（几号CPU或者几号GPU），会在终端打印出各项操作是在哪个设备上运行</li>
@@ -373,13 +370,10 @@
 <p>tf提供了两种控制GPU资源使用的方法，一种是让tf在运行过程中动态申请显存，需要多少就申请多少；另一种就是限制GPU的使用率。</p>
 <p>1、动态申请显存</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config = tf.ConfigProto()</span><br><span class="line">config.gpu_options.allow_growth = <span class="literal">True</span></span><br><span class="line">session = tf.Session(config=config)</span><br></pre></td></tr></table></figure>
-
 <p>2、限制GPU使用率</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config = tf.ConfigProto()</span><br><span class="line">config.gpu_options.per_process_gpu_memory_fraction=<span class="number">0.4</span> <span class="comment">#占用40%的显存</span></span><br><span class="line">session = tf.Session(config=config)</span><br></pre></td></tr></table></figure>
-
 <p>或者</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=<span class="number">0.4</span>)</span><br><span class="line">config = tf.ConfigProto(gpu_options=gpu_options)</span><br><span class="line">session = tf.Session(config=config)</span><br></pre></td></tr></table></figure>
-
 <p>参考：</p>
 <p><a href="https://blog.csdn.net/dcrmg/article/details/79091941" target="_blank" rel="noopener">https://blog.csdn.net/dcrmg/article/details/79091941</a></p>
 
