@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="PiggyHouse">
 <meta property="og:description" content="第二章前深度学习时代—推荐系统的进化之路协同过滤组  ItemCF：物品协同过滤 UserCF：用户协同过滤 MF（矩阵分解）：为了使协同过滤更好的处理稀疏共现矩阵问题、增强模型的泛化能力  逻辑回归组（协同过滤组仅使用用户的显性、隐形反馈信息，LR组能更好的融合 用户、物品、上下文特征）  LR LS-PLM：大规模分片线性模型  因子分解机组（加入了二阶特征，使模型具有特征组合的能力）  FM">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-19T07:42:57.673Z">
+<meta property="og:updated_time" content="2020-04-19T07:49:45.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐系统深度学习读书笔记-2">
 <meta name="twitter:description" content="第二章前深度学习时代—推荐系统的进化之路协同过滤组  ItemCF：物品协同过滤 UserCF：用户协同过滤 MF（矩阵分解）：为了使协同过滤更好的处理稀疏共现矩阵问题、增强模型的泛化能力  逻辑回归组（协同过滤组仅使用用户的显性、隐形反馈信息，LR组能更好的融合 用户、物品、上下文特征）  LR LS-PLM：大规模分片线性模型  因子分解机组（加入了二阶特征，使模型具有特征组合的能力）  FM">
@@ -382,98 +382,63 @@
 <li>用户数远大于物品数，导致矩阵计算开销大，复杂度会以 $n^2$ 速度增长</li>
 <li>用户行为数据稀疏，准确性低 </li>
 </ul>
-<p>UserCF适用于发现热点、以及跟踪热点的趋势，如新闻</p>
-<p>ItemCF适用于兴趣变化较为稳定，如购物网站、视频网站</p>
-<font color="red">协同过滤的问题</font> ：
-
-- 泛化能力较弱，两个热门itemm相似无法推广到其他物品上
-- 热门商品具有很强的头部效应，容易跟大量物品产生相似，而尾部的物品由于特征向量稀疏，导致大量尾部的物品很少被推荐
-- 头部效应明显，稀疏向量的处理能力弱
-- 因此MF技术提出
-
-
-
-矩阵分解：
-
-- 共现矩阵的基础上，增加模型的泛化能力
-
-- 使用更稠密的隐向量表示用户和物品，挖掘用户和物品的隐含兴趣和隐含特征
-
-- 隐向量是通过<font color="red">分解协同过滤生成的共现矩阵</font>得到的
-
-- m * n维矩阵分解成 m * k 和 k * n 的矩阵，k为隐向量的维度
-
-- k越小，隐向量包含的信息越少，泛化能力越强；k越大，隐向量包含的信息越多，泛化能力越小
-
-- 隐向量的生成过程是对共现矩阵进行全局拟合的过程，因此隐向量其实是全局信息生成，有更强的泛化能力
-
-
-
-矩阵分解的方法：
-
-- 特征值分解（Eigen Decomposition）：只作用于方阵，不适用于分解用户-物品矩阵
-
-- 奇异值分解（Singular Value Decomposition，SVD）：要求原始矩阵为稠密，而实际情况比较稀疏，需要对缺失值进行填充；计算复杂度高，实际情况计算开销过大
-
-- 梯度下降（Gradient Descent）
-
-  > 正则化加入loss function保持模型稳定
-  >
-  > 对于加入了正则化的loss function来说，模型权重值越大，损失函数越大
-  >
-  > 梯度下降是朝着损失小的方向发展，
-  >
-  > 加入正则项，希望在不影响原模型和数据集之间的损失前提下，使模型的权重变小，权重变小自然会让模型的输出波动更小，从而让模型更加稳定
-
-
-
-MF优点：
-
-- 泛化能力强
-- 空间复杂度低：$n^2$ 降低到 (n+m)k
-- 更好的拓展性和灵活性
-
-
-
-但是这几个方法都没有很好的处理 用户、物品、上下文 这些特征
-
-
-
-#### 逻辑回归算法
-
-常用的训练方法：
-
-- 梯度下降法
-
-  > 一阶最优化算法
-  >
-  > 找一个函数的局部最小值，必须沿函数上当前点对应梯度的反方向进行规定步长距离的迭代搜索
-  >
-  > 梯度的性质：如果实值函数F(x)在点x处可微且有定义，那么函数F(x)在点x出沿着梯度相反的方向-$\bigtriangledown$F(x)下降最快
-  >
-  > 优化某模型目标函数时候，只需对目标函数进行求导，得到梯度的方向，沿梯度反方向下降，并迭代过程直至寻找到局部最小点
-
-- 牛顿法
-
-- 拟牛顿法
-
-
-
-<font color="red">LR的优势：</font>
-
+<p>UserCF适用于发现热点、以及跟踪热点的趋势，如新闻<br>ItemCF适用于兴趣变化较为稳定，如购物网站、视频网站</p>
+<p><font color="red">协同过滤的问题</font> ：</p>
 <ul>
-<li><p>数字含义上的支撑</p>
+<li>泛化能力较弱，两个热门itemm相似无法推广到其他物品上</li>
+<li>热门商品具有很强的头部效应，容易跟大量物品产生相似，而尾部的物品由于特征向量稀疏，导致大量尾部的物品很少被推荐</li>
+<li>头部效应明显，稀疏向量的处理能力弱</li>
+<li>因此MF技术提出</li>
+</ul>
+<p>矩阵分解：</p>
+<ul>
+<li>共现矩阵的基础上，增加模型的泛化能力</li>
+<li>使用更稠密的隐向量表示用户和物品，挖掘用户和物品的隐含兴趣和隐含特征</li>
+<li>隐向量是通过<font color="red">分解协同过滤生成的共现矩阵</font>得到的</li>
+<li>m <em> n维矩阵分解成 m </em> k 和 k * n 的矩阵，k为隐向量的维度</li>
+<li>k越小，隐向量包含的信息越少，泛化能力越强；k越大，隐向量包含的信息越多，泛化能力越小</li>
+<li>隐向量的生成过程是对共现矩阵进行全局拟合的过程，因此隐向量其实是全局信息生成，有更强的泛化能力</li>
+</ul>
+<p>矩阵分解的方法：</p>
+<ul>
+<li>特征值分解（Eigen Decomposition）：只作用于方阵，不适用于分解用户-物品矩阵</li>
+<li>奇异值分解（Singular Value Decomposition，SVD）：要求原始矩阵为稠密，而实际情况比较稀疏，需要对缺失值进行填充；计算复杂度高，实际情况计算开销过大</li>
+<li>梯度下降（Gradient Descent）<blockquote>
+<p>正则化加入loss function保持模型稳定<br>对于加入了正则化的loss function来说，模型权重值越大，损失函数越大<br>梯度下降是朝着损失小的方向发展，<br>加入正则项，希望在不影响原模型和数据集之间的损失前提下，使模型的权重变小，权重变小自然会让模型的输出波动更小，从而让模型更加稳定</p>
+</blockquote>
 </li>
+</ul>
+<p>MF优点：</p>
+<ul>
+<li>泛化能力强</li>
+<li>空间复杂度低：$n^2$ 降低到 (n+m)k</li>
+<li>更好的拓展性和灵活性</li>
+</ul>
+<p>但是这几个方法都没有很好的处理 用户、物品、上下文 这些特征</p>
+<h4 id="逻辑回归算法"><a href="#逻辑回归算法" class="headerlink" title="逻辑回归算法"></a>逻辑回归算法</h4><p>常用的训练方法：</p>
+<ul>
+<li><p>梯度下降法</p>
+<blockquote>
+<p>一阶最优化算法</p>
+<p>找一个函数的局部最小值，必须沿函数上当前点对应梯度的反方向进行规定步长距离的迭代搜索</p>
+<p>梯度的性质：如果实值函数F(x)在点x处可微且有定义，那么函数F(x)在点x出沿着梯度相反的方向-$\bigtriangledown$F(x)下降最快</p>
+<p>优化某模型目标函数时候，只需对目标函数进行求导，得到梯度的方向，沿梯度反方向下降，并迭代过程直至寻找到局部最小点</p>
+</blockquote>
+</li>
+<li>牛顿法</li>
+<li>拟牛顿法</li>
+</ul>
+<p><font color="red">LR的优势：</font></p>
+<ul>
+<li>数字含义上的支撑</li>
 <li><p>可解释性强</p>
 <blockquote>
 <p>根据权重可以判断哪些特征比较重要</p>
 </blockquote>
 </li>
-<li><p>工程化需要</p>
-</li>
+<li>工程化需要</li>
 </ul>
-<font color="red">LR的局限性：</font>
-
+<p><font color="red">LR的局限性：</font></p>
 <ul>
 <li>表达能力不强，无法进行特征交叉、特征筛选操作</li>
 </ul>
@@ -495,9 +460,7 @@ MF优点：
 <p>FFM模型：加入了特征域的概念</p>
 <p>理论上来说FM也适用于高阶特征交叉，但是复杂度无法在工程方面接受</p>
 <h4 id="GBDT-LR"><a href="#GBDT-LR" class="headerlink" title="GBDT+LR"></a>GBDT+LR</h4><p>GBDT通过逐一生成决策子树的方式生成整个树林</p>
-<p>生成新子树的过程是利用样本标签值与当前树林预测值之间的残差，构建新的子树</p>
-<p>多棵回归树组成</p>
-<p>每棵树生成的过程是一棵标准的回归树生成过程</p>
+<p>生成新子树的过程是利用样本标签值与当前树林预测值之间的残差，构建新的子树<br>多棵回归树组成<br>每棵树生成的过程是一棵标准的回归树生成过程</p>
 <p><font color="red">缺点</font>：容易产生过拟合，以及GBDT的特征转换方式实际上丢失了大量特征的数值信息</p>
 <p>LS-PLM</p>
 <ul>
@@ -678,7 +641,7 @@ MF优点：
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章"><span class="nav-number">1.</span> <span class="nav-text">第二章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前深度学习时代—推荐系统的进化之路"><span class="nav-number">1.1.</span> <span class="nav-text">前深度学习时代—推荐系统的进化之路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协同过滤算法"><span class="nav-number">1.2.</span> <span class="nav-text">协同过滤算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#因子分解机模型"><span class="nav-number">1.3.</span> <span class="nav-text">因子分解机模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GBDT-LR"><span class="nav-number">1.4.</span> <span class="nav-text">GBDT+LR</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章"><span class="nav-number">1.</span> <span class="nav-text">第二章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前深度学习时代—推荐系统的进化之路"><span class="nav-number">1.1.</span> <span class="nav-text">前深度学习时代—推荐系统的进化之路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协同过滤算法"><span class="nav-number">1.2.</span> <span class="nav-text">协同过滤算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑回归算法"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑回归算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#因子分解机模型"><span class="nav-number">1.4.</span> <span class="nav-text">因子分解机模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GBDT-LR"><span class="nav-number">1.5.</span> <span class="nav-text">GBDT+LR</span></a></li></ol></li></ol></div>
             
 
           </div>
