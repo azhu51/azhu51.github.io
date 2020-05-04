@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="读书笔记,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第三章浪潮之巅—深度学习在推荐系统中的应用深度学习在推荐系统中的优势：  表达能力更强，挖掘出数据中更多的潜藏的模式 模型结构灵活，根据业务和数据特点，可以更灵活的调整模型结构，能与应用场景完美结合  按照其功能可以划分以下几个类型：  改变神经网络的复杂程度  简单的单层神经网络模型AutoRec（自编码推荐）-&amp;gt; 经典的深度神经网络模型DeepCrossing（深度特征交叉）   改变特">
+<meta name="keywords" content="读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统深度学习读书笔记-3">
+<meta property="og:url" content="http://yoursite.com/2020/05/04/resys-deeplearning-note-3/index.html">
+<meta property="og:site_name" content="PiggyHouse">
+<meta property="og:description" content="第三章浪潮之巅—深度学习在推荐系统中的应用深度学习在推荐系统中的优势：  表达能力更强，挖掘出数据中更多的潜藏的模式 模型结构灵活，根据业务和数据特点，可以更灵活的调整模型结构，能与应用场景完美结合  按照其功能可以划分以下几个类型：  改变神经网络的复杂程度  简单的单层神经网络模型AutoRec（自编码推荐）-&amp;gt; 经典的深度神经网络模型DeepCrossing（深度特征交叉）   改变特">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-04T10:29:06.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="推荐系统深度学习读书笔记-3">
+<meta name="twitter:description" content="第三章浪潮之巅—深度学习在推荐系统中的应用深度学习在推荐系统中的优势：  表达能力更强，挖掘出数据中更多的潜藏的模式 模型结构灵活，根据业务和数据特点，可以更灵活的调整模型结构，能与应用场景完美结合  按照其功能可以划分以下几个类型：  改变神经网络的复杂程度  简单的单层神经网络模型AutoRec（自编码推荐）-&amp;gt; 经典的深度神经网络模型DeepCrossing（深度特征交叉）   改变特">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/04/resys-deeplearning-note-3/">
+
+
+
+
+
+  <title>推荐系统深度学习读书笔记-3 | PiggyHouse</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PiggyHouse</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/04/resys-deeplearning-note-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="azhu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PiggyHouse">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">推荐系统深度学习读书笔记-3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-04T15:29:18+08:00">
+                2020-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h3><h4 id="浪潮之巅—深度学习在推荐系统中的应用"><a href="#浪潮之巅—深度学习在推荐系统中的应用" class="headerlink" title="浪潮之巅—深度学习在推荐系统中的应用"></a>浪潮之巅—深度学习在推荐系统中的应用</h4><p>深度学习在推荐系统中的优势：</p>
+<ul>
+<li>表达能力更强，挖掘出数据中更多的潜藏的模式</li>
+<li>模型结构灵活，根据业务和数据特点，可以更灵活的调整模型结构，能与应用场景完美结合</li>
+</ul>
+<p>按照其功能可以划分以下几个类型：</p>
+<ul>
+<li><p>改变神经网络的复杂程度</p>
+<blockquote>
+<p>简单的单层神经网络模型AutoRec（自编码推荐）-&gt; 经典的深度神经网络模型DeepCrossing（深度特征交叉）</p>
+</blockquote>
+</li>
+<li><p>改变特征交叉方式</p>
+<blockquote>
+<p>丰富神经网络中特征交叉的方式</p>
+<p>NeuralCF（神经网络协同过滤）：改变了用户向量和物品向量互操作方式</p>
+<p>PNN（基于积操作的神经网络）：定义了多种特征向量交叉操作</p>
+</blockquote>
+</li>
+<li><p>组合模型</p>
+<blockquote>
+<p>组合两种不同的特点，优势互补的深度学习网络，提升模型的综合能力</p>
+<p>Wide&amp;Deep -&gt; Deep&amp;Cross -&gt; DeepFM</p>
+</blockquote>
+</li>
+<li><p>FM模型的深度学习演化版本</p>
+<blockquote>
+<p>NFM（Neural Factorization Machine 神经网络因子分解机）：使用神经网络提升FM二阶部分的特征交叉能力</p>
+<p>FNN（Factorization-machine supported Neural Network 基于因子分解机支持的神经网络）：利用FM的结果进行网络初始化</p>
+<p>AFM（Attention neural Factorization Machine 注意力因子分解机）：引入了注意力机制的FM模型</p>
+</blockquote>
+</li>
+<li><p>注意力机制和推荐模型的结合</p>
+<blockquote>
+<p>AFM</p>
+<p>DIN</p>
+</blockquote>
+</li>
+<li><p>序列模型与推荐模型的结合</p>
+<blockquote>
+<p>使用序列模型模拟用户行为或用户兴趣的演化趋势，DIEN</p>
+</blockquote>
+</li>
+<li><p>强化学习与推荐模型的结合</p>
+<blockquote>
+<p>DRN（Deep Reinforcement Learning Network  深度强化学习网络）</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="AutoRec—单隐层神经网络推荐模型"><a href="#AutoRec—单隐层神经网络推荐模型" class="headerlink" title="AutoRec—单隐层神经网络推荐模型"></a>AutoRec—单隐层神经网络推荐模型</h4><p>paper地址：<a href="http://users.cecs.anu.edu.au/~u5098633/papers/www15.pdf" target="_blank" rel="noopener">http://users.cecs.anu.edu.au/~u5098633/papers/www15.pdf</a></p>
+<p>AutoEncoder + 协同过滤 -&gt; 一种单隐层神经网络推荐模型</p>
+<p>基本原理是利用协同过滤中的共现矩阵，完成物品向量或用户向量的自编码，</p>
+<p>再利用自编码结果得到用户对物品的预估评分，进而进行推荐排序。</p>
+<blockquote>
+<p>自编码器的作用是将向量r作为输入，通过自编码后，得到的输出向量尽量接近其本身</p>
+<p>自编码器相当于完成了数据压缩和降维的工作</p>
+<p>输出向量由于经过自编码器的泛化过程，因此具备了一定的缺失维度的预测能力</p>
+</blockquote>
+<p>输入物品的评分向量：基于物品的AutoRec（I-AutoRec）</p>
+<p>输入用户的评分向量：基于用户的AutoRec（U-AutoRec）</p>
+<p>劣势：</p>
+<ul>
+<li>结构简单导致表达能力不足</li>
+</ul>
+<h4 id="Deep-Crossing—经典的深度学习架构"><a href="#Deep-Crossing—经典的深度学习架构" class="headerlink" title="Deep Crossing—经典的深度学习架构"></a>Deep Crossing—经典的深度学习架构</h4><p>三类特征：</p>
+<ul>
+<li>可以处理成one-hot或者multi-hot向量的类别特征</li>
+<li>数值型特征：直接拼接进特征向量中</li>
+<li>进一步处理的特征（统计特征）</li>
+</ul>
+<p>网络结构主要分为四层：</p>
+<ul>
+<li><p>Embedding层（解决了类别特征编码后过于稀疏的问题，稀疏特征向量稠密化）</p>
+<blockquote>
+<p>将稀疏的类别特征转换成稠密的embedding向量</p>
+<p>embedding向量的维度远小于原始的稀疏特征向量</p>
+<p>数值型特征不需要经过embedding层</p>
+</blockquote>
+</li>
+<li><p>Stacking层</p>
+<blockquote>
+<p>特征拼接，concatenate层</p>
+</blockquote>
+</li>
+<li><p>Multiple Residual Unit层（解决特征自动交叉组合的问题）</p>
+<blockquote>
+<p>多层残差网络（Multi-Layer Residual Network）</p>
+<blockquote>
+<p>残差网络的诞生解决过拟合问题、relu作为激活函数，收敛更快</p>
+</blockquote>
+<p>通过MLRN对特征向量各个维度进行充分的交叉组合，使模型能够抓取到更多的非线性特征和组合特征的信息，进而使表达能力更强</p>
+</blockquote>
+</li>
+<li><p>Scoring层</p>
+<blockquote>
+<p>对于CTR预估这类二分类问题，使用LR模型</p>
+<p>对于图像分类这多分类问题，使用softmax模型</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="NeuralCF模型—CF与深度学习的结合"><a href="#NeuralCF模型—CF与深度学习的结合" class="headerlink" title="NeuralCF模型—CF与深度学习的结合"></a>NeuralCF模型—CF与深度学习的结合</h4><p>MF网络化表示可以看做是embedding（矩阵分解层）+scoring（内积）</p>
+<p>MF模型容易欠拟合，模型结构简单</p>
+<p>NeuralCF用【多层神经网络+输出层】替代了内积</p>
+<blockquote>
+<p>用户向量和物品向量能做更充分的交叉，得到更多有价值的特征组合信息</p>
+<p>引入更多的非线性特征，模型的表达能力更强</p>
+</blockquote>
+<p>用户向量和物品向量的互操作层可以被任意的互操作形式所代替，广义矩阵分解模型（GMF）</p>
+<blockquote>
+<p>softmax函数解决了从一个原始的n维向量，向一个n维的概率分布映射的问题</p>
+</blockquote>
+<p>NCF的劣势就是没有引入其他类型的特征，仅仅类似ICF或者UCF只使用了物品和用户特征</p>
+<p>深度学习构建推荐模型的优势：</p>
+<font color="red">利用神经网络理论上能够拟合任意函数的能力，灵活地组合不同的特征，按需增加或减少模型的复杂度</font>
+
+
+
+<h4 id="PNN模型—加强特征交叉能力"><a href="#PNN模型—加强特征交叉能力" class="headerlink" title="PNN模型—加强特征交叉能力"></a>PNN模型—加强特征交叉能力</h4><p>PNN用乘积层（Product Layer）代替了Deep Crossing模型中的stacking层</p>
+<p>不同特征的Embedding向量不再是简单的拼接，而是用Product操作进行两两交互，更有针对性地获取特征之间的交叉信息。</p>
+<p>乘积层= 内积+外积</p>
+<p>PNN为了减少训练的复杂度，把外积互操作的结果叠加，类似于embedding中的平均池化层，average pooling。</p>
+<blockquote>
+<p>平均池化的操作需要发生在同类embedding上</p>
+</blockquote>
+<p>PNN的结构强调了特征embedding向量之间的交叉方式是多样化的</p>
+<p>但是无差别交叉，在一定程度上忽略了原始特征向量中包含的有价值信息</p>
+<h4 id="Wide-amp-Deep模型—记忆能力和泛化能力的结合"><a href="#Wide-amp-Deep模型—记忆能力和泛化能力的结合" class="headerlink" title="Wide&amp;Deep模型—记忆能力和泛化能力的结合"></a>Wide&amp;Deep模型—记忆能力和泛化能力的结合</h4><p>wide：memorization</p>
+<blockquote>
+<p>模型直接学习并利用历史数据中物品或者特征的共现频率的能力</p>
+</blockquote>
+<p>deep：generalization</p>
+<blockquote>
+<p>理解为模型传递特征的相关性，以及挖掘稀疏甚至从未出现过的稀有特征与最终标签相关性的能力</p>
+</blockquote>
+<p>wide部分善于处理大量稀疏的id特征</p>
+<p>deep部分输入是全量的特征向量，wide部分输入仅仅是已安装应用和曝光应用两类特征</p>
+<h4 id="Wide-amp-Deep模型的进化—-Deep-amp-Cross模型"><a href="#Wide-amp-Deep模型的进化—-Deep-amp-Cross模型" class="headerlink" title="Wide&amp;Deep模型的进化—-Deep&amp;Cross模型"></a>Wide&amp;Deep模型的进化—-Deep&amp;Cross模型</h4><p>cross部分替代了wide部分</p>
+<p>目的是为了增强特征之间的交互力度，使用多层交叉层对输入向量进行特征交叉</p>
+<h4 id="FNN—用FM的隐向量完成Embedding的初始化"><a href="#FNN—用FM的隐向量完成Embedding的初始化" class="headerlink" title="FNN—用FM的隐向量完成Embedding的初始化"></a>FNN—用FM的隐向量完成Embedding的初始化</h4><p>Embedding收敛速度慢</p>
+<blockquote>
+<p>Embedding层的参数数量巨大</p>
+<p>输入向量稀疏，只有非零特征权重会更新</p>
+</blockquote>
+<p>FNN用FM模型训练好的各特征隐向量初始化Embedding层的参数</p>
+<p>相当于在初始化神经网络参数时，引入了有价值的先验信息</p>
+<h4 id="DeepFM—用FM代替Wide"><a href="#DeepFM—用FM代替Wide" class="headerlink" title="DeepFM—用FM代替Wide"></a>DeepFM—用FM代替Wide</h4><p>针对Wide&amp;Deep模型的Wide部分不具备自动的特征组合能力的缺陷改进的，与Deep&amp;Cross一致</p>
+<p>Deep&amp;Cross是利用多层cross网络进行特征组合</p>
+<p>DeepFM利用FM进行特征组合</p>
+<h4 id="NFM—FM的神经网络化尝试"><a href="#NFM—FM的神经网络化尝试" class="headerlink" title="NFM—FM的神经网络化尝试"></a>NFM—FM的神经网络化尝试</h4><p>受组合爆炸问题的困扰，FM几乎不可能拓展到三阶以上，不可避免的限制了FM模型的表达能力。</p>
+<p>NFM模型用一个表达能力更强的函数替代原FM中二阶隐向量内积的部分。</p>
+<p>在Embedding层和多层神经网络之间加入特征交叉池化层（Bi-Interaction Pooling Layer）</p>
+<h4 id="特征工程的思路"><a href="#特征工程的思路" class="headerlink" title="特征工程的思路"></a><font color="red">特征工程的思路</font></h4><p>沿着特征工程自动化的思路，深度学习从PNN</p>
+<p>经过了W&amp;D，D&amp;C，DeepFM，NFM等模型，进行了大量的、基于不同特征互操作思路的尝试</p>
+<h4 id="AFM—引入注意力机制的FM"><a href="#AFM—引入注意力机制的FM" class="headerlink" title="AFM—引入注意力机制的FM"></a>AFM—引入注意力机制的FM</h4><p>NFM中在特征交叉池化层进行了sum操作，没考虑不同特征对结果的影响程度，事实上消解了大量有价值的信息。</p>
+<p>用户对不同特征的关注度是不同的，因此有了AFM</p>
+<h4 id="DIN—引入注意力机制的深度学习网络"><a href="#DIN—引入注意力机制的深度学习网络" class="headerlink" title="DIN—引入注意力机制的深度学习网络"></a>DIN—引入注意力机制的深度学习网络</h4><p>利用候选商品和历史行为商品之间的相关性计算出一个权重，这个权重代表了注意力的强弱</p>
+<p>注意力机制在数学形式上只是将过去的<font color="red">平均操作或加和操作</font>换成了<font color="red">加权和或者加权平均操作</font>。</p>
+<h4 id="DIEN—序列模型与推荐系统的结合"><a href="#DIEN—序列模型与推荐系统的结合" class="headerlink" title="DIEN—序列模型与推荐系统的结合"></a>DIEN—序列模型与推荐系统的结合</h4><p>用序列模型模拟了用户兴趣的进化过程</p>
+<p>序列信息的重要性在于：</p>
+<blockquote>
+<p>加强了最近行为对于下次行为预测的影响</p>
+<p>序列模型能够学习到购买趋势的信息</p>
+</blockquote>
+<p>如果放弃序列信息，则模型学习时间和趋势这类信息的能力就不会那么强，</p>
+<p>推荐模型仍然是基于用户所有购买历史的综合推荐，而不是针对下一次购买推荐</p>
+<p>兴趣抽取层的结构：</p>
+<blockquote>
+<p>GRU（Gated Recurrent Unit，门循环单元）</p>
+<p>GRU解决了RNN的梯度消失问题，与LSTM相比，GRU的参数数量更少，收敛速度更快</p>
+</blockquote>
+<p>兴趣进化层：</p>
+<blockquote>
+<p>加入了注意力机制</p>
+<p>得分生成的过程与DIN完全一致</p>
+<p>AUGRU（GRU with Attentional Upgrade gate，基于注意力更新门的GRU）</p>
+<p>在原GRU的更新门结构上加入了注意力得分</p>
+</blockquote>
+<h4 id="强化学习与推荐系统的结合"><a href="#强化学习与推荐系统的结合" class="headerlink" title="强化学习与推荐系统的结合"></a>强化学习与推荐系统的结合</h4><p>智能体（Agent）：推荐系统</p>
+<p>环境（Environment）</p>
+<p>外部反馈（Reward）</p>
+<p>自身状态（State）</p>
+<p>行动（Action）</p>
+<p>行动-反馈-状态更新</p>
+<h4 id="DRN"><a href="#DRN" class="headerlink" title="DRN"></a>DRN</h4><p>智能体：推荐系统本身，包括基于深度学习的推荐模型、探索策略、以及相关的数据存储</p>
+<p>环境：由APP、用户组成的整个推荐系统外部环境，在环境中，用户接收推荐的结果并作出相应反馈</p>
+<p>行动：推荐系统进行新闻排序后推送给用户的动作</p>
+<p>反馈：用户收到推荐结果后，进行正向的或负向的反馈。</p>
+<p>状态：对环境以及自身当前所处具体情况的刻画。可以看做已收到所有行动和反馈，以及用户和相关信息的特征向量表示。</p>
+<p>迭代过程如下：</p>
+<blockquote>
+<p>初始化推荐系统（智能体）</p>
+<p>推荐系统基于当前已收集的数据（状态）进行新闻排序（行动），并推送到网站或APP中（环境）</p>
+<p>用户收到推荐列表，点击或者忽略（反馈）</p>
+<p>推荐系统收到反馈，更新当前状态或通过模型训练更新模型</p>
+<p>重复第二步</p>
+</blockquote>
+<p>DQN：</p>
+<p>用户特征和上下文特征归为状态向量</p>
+<p>用户-新闻交叉特征和新闻特征归为行动向量</p>
+<p>在线训练方法：竞争梯度下降算法（Dueling Bandit Gradient Descent Algorithm）</p>
+<h4 id="各个模型paper地址"><a href="#各个模型paper地址" class="headerlink" title="各个模型paper地址"></a>各个模型paper地址</h4><p>AutoRec：<a href="http://users.cecs.anu.edu.au/~u5098633/papers/www15.pdf" target="_blank" rel="noopener">http://users.cecs.anu.edu.au/~u5098633/papers/www15.pdf</a></p>
+<p>DeepCrossing：<a href="https://www.kdd.org/kdd2016/papers/files/adf0975-shanA.pdf" target="_blank" rel="noopener">https://www.kdd.org/kdd2016/papers/files/adf0975-shanA.pdf</a></p>
+<p>NeuralCF：<a href="http://papers.www2017.com.au.s3-website-ap-southeast-2.amazonaws.com/proceedings/p173.pdf" target="_blank" rel="noopener">http://papers.www2017.com.au.s3-website-ap-southeast-2.amazonaws.com/proceedings/p173.pdf</a></p>
+<p>PNN：<a href="https://arxiv.org/pdf/1611.00144.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1611.00144.pdf</a></p>
+<p>Wide&amp;Deep：<a href="https://arxiv.org/pdf/1606.07792.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1606.07792.pdf</a></p>
+<p>Deep&amp;Cross：<a href="https://arxiv.org/pdf/1708.05123.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1708.05123.pdf</a></p>
+<p>FNN：<a href="https://arxiv.org/pdf/1601.02376.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1601.02376.pdf</a></p>
+<p>DeepFM：<a href="https://arxiv.org/pdf/1703.04247.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1703.04247.pdf</a></p>
+<p>NFM：<a href="https://arxiv.org/pdf/1708.05027.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1708.05027.pdf</a></p>
+<p>AFM：<a href="https://www.ijcai.org/Proceedings/2017/0435.pdf" target="_blank" rel="noopener">https://www.ijcai.org/Proceedings/2017/0435.pdf</a></p>
+<p>DIN：<a href="https://arxiv.org/pdf/1706.06978.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1706.06978.pdf</a></p>
+<p>DIEN：<a href="https://arxiv.org/pdf/1809.03672.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1809.03672.pdf</a></p>
+<p>DRN：<a href="http://www.personal.psu.edu/~gjz5038/paper/www2018_reinforceRec/www2018_reinforceRec.pdf" target="_blank" rel="noopener">http://www.personal.psu.edu/~gjz5038/paper/www2018_reinforceRec/www2018_reinforceRec.pdf</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/02/resys-4/" rel="next" title="推荐系统是什么？">
+                <i class="fa fa-chevron-left"></i> 推荐系统是什么？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">azhu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章"><span class="nav-number">1.</span> <span class="nav-text">第三章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#浪潮之巅—深度学习在推荐系统中的应用"><span class="nav-number">1.1.</span> <span class="nav-text">浪潮之巅—深度学习在推荐系统中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AutoRec—单隐层神经网络推荐模型"><span class="nav-number">1.2.</span> <span class="nav-text">AutoRec—单隐层神经网络推荐模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Deep-Crossing—经典的深度学习架构"><span class="nav-number">1.3.</span> <span class="nav-text">Deep Crossing—经典的深度学习架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NeuralCF模型—CF与深度学习的结合"><span class="nav-number">1.4.</span> <span class="nav-text">NeuralCF模型—CF与深度学习的结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PNN模型—加强特征交叉能力"><span class="nav-number">1.5.</span> <span class="nav-text">PNN模型—加强特征交叉能力</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Wide-amp-Deep模型—记忆能力和泛化能力的结合"><span class="nav-number">1.6.</span> <span class="nav-text">Wide&amp;Deep模型—记忆能力和泛化能力的结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Wide-amp-Deep模型的进化—-Deep-amp-Cross模型"><span class="nav-number">1.7.</span> <span class="nav-text">Wide&amp;Deep模型的进化—-Deep&amp;Cross模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FNN—用FM的隐向量完成Embedding的初始化"><span class="nav-number">1.8.</span> <span class="nav-text">FNN—用FM的隐向量完成Embedding的初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeepFM—用FM代替Wide"><span class="nav-number">1.9.</span> <span class="nav-text">DeepFM—用FM代替Wide</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NFM—FM的神经网络化尝试"><span class="nav-number">1.10.</span> <span class="nav-text">NFM—FM的神经网络化尝试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征工程的思路"><span class="nav-number">1.11.</span> <span class="nav-text">特征工程的思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AFM—引入注意力机制的FM"><span class="nav-number">1.12.</span> <span class="nav-text">AFM—引入注意力机制的FM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DIN—引入注意力机制的深度学习网络"><span class="nav-number">1.13.</span> <span class="nav-text">DIN—引入注意力机制的深度学习网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DIEN—序列模型与推荐系统的结合"><span class="nav-number">1.14.</span> <span class="nav-text">DIEN—序列模型与推荐系统的结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强化学习与推荐系统的结合"><span class="nav-number">1.15.</span> <span class="nav-text">强化学习与推荐系统的结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DRN"><span class="nav-number">1.16.</span> <span class="nav-text">DRN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#各个模型paper地址"><span class="nav-number">1.17.</span> <span class="nav-text">各个模型paper地址</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">azhu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
