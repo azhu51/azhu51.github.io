@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="python,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,14 @@
 
 
 
-<meta name="description" content="今天在内网里看到有人讨论python里map函数的运行方式，正好找了点资料自己实践了下，这里做个总结。">
-<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python之map函数">
-<meta property="og:url" content="http://yoursite.com/2019/07/09/python-1/index.html">
+<meta property="og:title" content="word2vecAndFasttext">
+<meta property="og:url" content="http://yoursite.com/2020/05/12/word2vecAndFasttext/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="今天在内网里看到有人讨论python里map函数的运行方式，正好找了点资料自己实践了下，这里做个总结。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-10T13:14:10.182Z">
+<meta property="og:updated_time" content="2020-05-12T03:37:21.023Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python之map函数">
-<meta name="twitter:description" content="今天在内网里看到有人讨论python里map函数的运行方式，正好找了点资料自己实践了下，这里做个总结。">
+<meta name="twitter:title" content="word2vecAndFasttext">
 
 
 
@@ -120,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/09/python-1/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/12/word2vecAndFasttext/">
 
 
 
 
 
-  <title>python之map函数 | PiggyHouse</title>
+  <title>word2vecAndFasttext | PiggyHouse</title>
   
 
 
@@ -263,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/python-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/12/word2vecAndFasttext/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="azhu">
@@ -280,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python之map函数</h1>
+          <h1 class="post-title" itemprop="name headline">word2vecAndFasttext</h1>
         
 
         <div class="post-meta">
@@ -292,8 +288,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T23:09:38+08:00">
-                2019-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-12T11:37:21+08:00">
+                2020-05-12
               </time>
             
 
@@ -302,28 +298,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/代码编写/" itemprop="url" rel="index">
-                    <span itemprop="name">代码编写</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -352,17 +326,7 @@
       
 
       
-        <p>今天在内网里看到有人讨论python里map函数的运行方式，正好找了点资料自己实践了下，这里做个总结。</p>
-<a id="more"></a>
-<h4 id="内建的map函数"><a href="#内建的map函数" class="headerlink" title="内建的map函数"></a>内建的map函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> datetime.now(), <span class="string">"start.."</span></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">print</span> datetime.now(), <span class="string">"end.."</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"></span><br><span class="line">map(add,[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],[<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br></pre></td></tr></table></figure>
-<p>返回的结果：</p>
-<p>2019-07-09 23:08:32.748735 start..<br>2019-07-09 23:08:37.752953 end..<br>2019-07-09 23:08:37.753019 start..<br>2019-07-09 23:08:42.755606 end..<br>2019-07-09 23:08:42.755672 start..<br>2019-07-09 23:08:47.757787 end..</p>
-<p>可以看出来运行的时候是串行执行的，按照顺序进行执行，如果想并行的方式运行map，则可以用以下方法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> multiprocessing.dummy <span class="keyword">import</span> Pool <span class="keyword">as</span> ThreadPool</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> datetime.now(), <span class="string">"start.."</span></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">print</span> datetime.now(), <span class="string">"end.."</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"></span><br><span class="line"><span class="comment">#map(add,[1, 2, 3],[4, 5, 6])</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_wrap</span><span class="params">(args)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> add(*args)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    pool = ThreadPool(<span class="number">4</span>)</span><br><span class="line">    <span class="keyword">print</span> pool.map(add_wrap, [(<span class="number">1</span>,<span class="number">2</span>), (<span class="number">3</span>,<span class="number">4</span>), (<span class="number">5</span>,<span class="number">6</span>)])</span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br></pre></td></tr></table></figure>
-<p>返回的结果：</p>
-<p>2019-07-09 23:16:14.896814 start..<br>2019-07-09 23:16:14.896944 start..<br>2019-07-09 23:16:14.897000 start..<br>2019-07-09 23:16:19.898997 2019-07-09 23:16:19.899071 end..<br>end..2019-07-09 23:16:19.899232 end..</p>
-<p><a href="https://blog.moguang.me/2016/04/05/python/python-map-function/" target="_blank" rel="noopener">参考链接</a></p>
-
+        
       
     </div>
     
@@ -377,12 +341,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-        </div>
-      
 
       
       
@@ -392,8 +350,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/09/scala-1/" rel="next" title="Scala之两个Map合并">
-                <i class="fa fa-chevron-left"></i> Scala之两个Map合并
+              <a href="/2020/05/04/resys-deeplearning-note-3/" rel="next" title="推荐系统深度学习读书笔记-3">
+                <i class="fa fa-chevron-left"></i> 推荐系统深度学习读书笔记-3
               </a>
             
           </div>
@@ -402,8 +360,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/10/python-2/" rel="prev" title="python之repr函数">
-                python之repr函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/05/16/resys-deeplearning-note-4/" rel="prev" title="resys-deeplearning-note-4">
+                resys-deeplearning-note-4 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -456,17 +414,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -526,22 +475,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#内建的map函数"><span class="nav-number">1.</span> <span class="nav-text">内建的map函数</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

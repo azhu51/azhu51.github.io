@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="python,">
+  <meta name="keywords" content="读书笔记,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="今天在内网里看到有人讨论python里map函数的运行方式，正好找了点资料自己实践了下，这里做个总结。">
-<meta name="keywords" content="python">
+<meta name="description" content="推荐系统推荐系统是什么？ 传统推荐模型整理汇总 深度推荐模型整理汇总 大数据开发深入浅出Spark（一） 深入浅出Spark（二）——RDD篇 深入浅出Spark（三）——调优 数据分析在温州吃什么？？ 数学知识补录几种product的整理">
+<meta name="keywords" content="读书笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python之map函数">
-<meta property="og:url" content="http://yoursite.com/2019/07/09/python-1/index.html">
+<meta property="og:title" content="微信公众号已发文章汇总">
+<meta property="og:url" content="http://yoursite.com/2020/05/16/wx-official-accounts-article/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="今天在内网里看到有人讨论python里map函数的运行方式，正好找了点资料自己实践了下，这里做个总结。">
+<meta property="og:description" content="推荐系统推荐系统是什么？ 传统推荐模型整理汇总 深度推荐模型整理汇总 大数据开发深入浅出Spark（一） 深入浅出Spark（二）——RDD篇 深入浅出Spark（三）——调优 数据分析在温州吃什么？？ 数学知识补录几种product的整理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-10T13:14:10.182Z">
+<meta property="og:updated_time" content="2020-05-16T11:46:48.966Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python之map函数">
-<meta name="twitter:description" content="今天在内网里看到有人讨论python里map函数的运行方式，正好找了点资料自己实践了下，这里做个总结。">
+<meta name="twitter:title" content="微信公众号已发文章汇总">
+<meta name="twitter:description" content="推荐系统推荐系统是什么？ 传统推荐模型整理汇总 深度推荐模型整理汇总 大数据开发深入浅出Spark（一） 深入浅出Spark（二）——RDD篇 深入浅出Spark（三）——调优 数据分析在温州吃什么？？ 数学知识补录几种product的整理">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/09/python-1/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/16/wx-official-accounts-article/">
 
 
 
 
 
-  <title>python之map函数 | PiggyHouse</title>
+  <title>微信公众号已发文章汇总 | PiggyHouse</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/python-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/16/wx-official-accounts-article/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="azhu">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python之map函数</h1>
+          <h1 class="post-title" itemprop="name headline">微信公众号已发文章汇总</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T23:09:38+08:00">
-                2019-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-16T19:43:24+08:00">
+                2020-05-16
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/代码编写/" itemprop="url" rel="index">
-                    <span itemprop="name">代码编写</span>
+                  <a href="/categories/微信公众号/" itemprop="url" rel="index">
+                    <span itemprop="name">微信公众号</span>
                   </a>
                 </span>
 
@@ -352,16 +352,14 @@
       
 
       
-        <p>今天在内网里看到有人讨论python里map函数的运行方式，正好找了点资料自己实践了下，这里做个总结。</p>
-<a id="more"></a>
-<h4 id="内建的map函数"><a href="#内建的map函数" class="headerlink" title="内建的map函数"></a>内建的map函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> datetime.now(), <span class="string">"start.."</span></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">print</span> datetime.now(), <span class="string">"end.."</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"></span><br><span class="line">map(add,[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],[<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br></pre></td></tr></table></figure>
-<p>返回的结果：</p>
-<p>2019-07-09 23:08:32.748735 start..<br>2019-07-09 23:08:37.752953 end..<br>2019-07-09 23:08:37.753019 start..<br>2019-07-09 23:08:42.755606 end..<br>2019-07-09 23:08:42.755672 start..<br>2019-07-09 23:08:47.757787 end..</p>
-<p>可以看出来运行的时候是串行执行的，按照顺序进行执行，如果想并行的方式运行map，则可以用以下方法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> multiprocessing.dummy <span class="keyword">import</span> Pool <span class="keyword">as</span> ThreadPool</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> datetime.now(), <span class="string">"start.."</span></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">print</span> datetime.now(), <span class="string">"end.."</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"></span><br><span class="line"><span class="comment">#map(add,[1, 2, 3],[4, 5, 6])</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_wrap</span><span class="params">(args)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> add(*args)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    pool = ThreadPool(<span class="number">4</span>)</span><br><span class="line">    <span class="keyword">print</span> pool.map(add_wrap, [(<span class="number">1</span>,<span class="number">2</span>), (<span class="number">3</span>,<span class="number">4</span>), (<span class="number">5</span>,<span class="number">6</span>)])</span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br></pre></td></tr></table></figure>
-<p>返回的结果：</p>
-<p>2019-07-09 23:16:14.896814 start..<br>2019-07-09 23:16:14.896944 start..<br>2019-07-09 23:16:14.897000 start..<br>2019-07-09 23:16:19.898997 2019-07-09 23:16:19.899071 end..<br>end..2019-07-09 23:16:19.899232 end..</p>
-<p><a href="https://blog.moguang.me/2016/04/05/python/python-map-function/" target="_blank" rel="noopener">参考链接</a></p>
+        <h3 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483826&amp;idx=1&amp;sn=a8d913229f3c5a9302653ba4ac16ff70&amp;chksm=fe5ec926c92940300e3dfe9a202955d5841697e4a4493775a07ab1520269c250021c8b962035&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">推荐系统是什么？</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483831&amp;idx=1&amp;sn=d18aaf7008404896eb2c04ce19fc7ae8&amp;chksm=fe5ec923c9294035d616e488681852933ae861b4514726e270281465b5d89b5d31da483b3699&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">传统推荐模型整理汇总</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483846&amp;idx=1&amp;sn=1025705af62b7b12918f295edd7255e9&amp;chksm=fe5ec952c92940442fd60a46787e36cb454718cca7e306ff65c3a5eac1eef6fe4f99457b5692&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">深度推荐模型整理汇总</a></p>
+<h3 id="大数据开发"><a href="#大数据开发" class="headerlink" title="大数据开发"></a>大数据开发</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483715&amp;idx=1&amp;sn=991abbba7decd1580ad14238e6667a0b&amp;chksm=fe5ec9d7c92940c18b6523c6b781856866b8839c2905e3749d3af1242feeb04f07b8751a30a9&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">深入浅出Spark（一）</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483729&amp;idx=1&amp;sn=7e82041c1919729d7f41a3baab2fd624&amp;chksm=fe5ec9c5c92940d361fdc443dfd4e58ce029c259e4ba3141d9c77b8bba4adba36c10abb4cf4b&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">深入浅出Spark（二）——RDD篇</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483812&amp;idx=1&amp;sn=389ee1663509a1ea38681ae29a3ca67c&amp;chksm=fe5ec930c9294026f4beb66b697f42616c3e757524016db65f6b5568340e80dc6e8200fe4148&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">深入浅出Spark（三）——调优</a></p>
+<h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483777&amp;idx=1&amp;sn=5fe35c398e6523f4b465b83f344e2d60&amp;chksm=fe5ec915c929400300796b9186cc71234abf4ffa54fea38d81532f12a3703b90c4a89df7b841&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">在温州吃什么？？</a></p>
+<h3 id="数学知识补录"><a href="#数学知识补录" class="headerlink" title="数学知识补录"></a>数学知识补录</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483836&amp;idx=1&amp;sn=70ab27c0244fb7ce170f51f090b791ce&amp;chksm=fe5ec928c929403eb0bc85f5b0e487d7d64bedb2b8c4f8788dbd6bac4754b0c6eccfb8fef760&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">几种product的整理</a></p>
 
       
     </div>
@@ -379,7 +377,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"># python</a>
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
           
         </div>
       
@@ -392,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/09/scala-1/" rel="next" title="Scala之两个Map合并">
-                <i class="fa fa-chevron-left"></i> Scala之两个Map合并
+              <a href="/2020/05/16/resys-deeplearning-note-4/" rel="next" title="resys-deeplearning-note-4">
+                <i class="fa fa-chevron-left"></i> resys-deeplearning-note-4
               </a>
             
           </div>
@@ -401,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/10/python-2/" rel="prev" title="python之repr函数">
-                python之repr函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -536,7 +530,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#内建的map函数"><span class="nav-number">1.</span> <span class="nav-text">内建的map函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐系统"><span class="nav-number">1.</span> <span class="nav-text">推荐系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据开发"><span class="nav-number">2.</span> <span class="nav-text">大数据开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析"><span class="nav-number">3.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学知识补录"><span class="nav-number">4.</span> <span class="nav-text">数学知识补录</span></a></li></ol></div>
             
 
           </div>
