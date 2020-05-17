@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="pass">
+<meta name="description" content="第四章Embedding技术在推荐系统中的应用Embedding主要作用是将稀疏向量转换成稠密向量  用一个低维稠密的向量表示一个对象 该向量能够表达相应对象的某些特征 向量之间的距离反映了对象之间的相似性   视频推荐往往使用用户的观看序列进行电影的Embedding化 电商平台会使用用户的购买历史作为训练样本  为什么Embedding技术对于深度学习那么重要？  类别、id类特征使用one-">
 <meta name="keywords" content="读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="推荐系统深度学习读书笔记-4">
 <meta property="og:url" content="http://yoursite.com/2020/05/16/resys-deeplearning-note-4/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="pass">
+<meta property="og:description" content="第四章Embedding技术在推荐系统中的应用Embedding主要作用是将稀疏向量转换成稠密向量  用一个低维稠密的向量表示一个对象 该向量能够表达相应对象的某些特征 向量之间的距离反映了对象之间的相似性   视频推荐往往使用用户的观看序列进行电影的Embedding化 电商平台会使用用户的购买历史作为训练样本  为什么Embedding技术对于深度学习那么重要？  类别、id类特征使用one-">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-16T11:52:49.315Z">
+<meta property="og:updated_time" content="2020-05-17T08:21:11.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐系统深度学习读书笔记-4">
-<meta name="twitter:description" content="pass">
+<meta name="twitter:description" content="第四章Embedding技术在推荐系统中的应用Embedding主要作用是将稀疏向量转换成稠密向量  用一个低维稠密的向量表示一个对象 该向量能够表达相应对象的某些特征 向量之间的距离反映了对象之间的相似性   视频推荐往往使用用户的观看序列进行电影的Embedding化 电商平台会使用用户的购买历史作为训练样本  为什么Embedding技术对于深度学习那么重要？  类别、id类特征使用one-">
 
 
 
@@ -352,7 +352,80 @@
       
 
       
-        <p>pass</p>
+        <h3 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h3><h4 id="Embedding技术在推荐系统中的应用"><a href="#Embedding技术在推荐系统中的应用" class="headerlink" title="Embedding技术在推荐系统中的应用"></a>Embedding技术在推荐系统中的应用</h4><p>Embedding主要作用是<font color="red">将稀疏向量转换成稠密向量</font></p>
+<ul>
+<li>用一个低维稠密的向量表示一个对象</li>
+<li>该向量能够表达相应对象的某些特征</li>
+<li>向量之间的距离反映了对象之间的相似性</li>
+</ul>
+<blockquote>
+<p>视频推荐往往使用用户的观看序列进行电影的Embedding化</p>
+<p>电商平台会使用用户的购买历史作为训练样本</p>
+</blockquote>
+<p>为什么Embedding技术对于深度学习那么重要？</p>
+<ul>
+<li>类别、id类特征使用one-hot编码导致样本向量<font color="red">极其稀疏</font>，深度学习模型不利于稀疏特征向量的处理，因此模型中的embedding层会将高维稀疏特征向量转换成稠密低维向量</li>
+<li>embedding向量表达能力更强，包含很多潜在的信息</li>
+<li>在LSH等快速最近邻搜索技术应用于推荐系统后，Embedding更适用于海量备选item进行初筛</li>
+</ul>
+<h4 id="word2vec"><a href="#word2vec" class="headerlink" title="word2vec"></a>word2vec</h4><p>word2vec的两种模型：</p>
+<ul>
+<li>CBOW：每个词都是由相邻的词决定的</li>
+<li>Skip-gram：每个词决定了相邻的词（经验上，这个模型效果更好）</li>
+</ul>
+<p>为了减轻训练负担，采用负采样，优化目标从一个多分类问题退化成一个近似二分类问题</p>
+<p>加快word2vec训练速度的方法还有层级softmax</p>
+<h4 id="Item2vec"><a href="#Item2vec" class="headerlink" title="Item2vec"></a>Item2vec</h4><p>相比word2vec利用词序列生成词embedding，item2vec利用的物品序列是由特定用户浏览、购买等行为产生的历史行为记录序列</p>
+<p>item2vec与word2vec唯一不同：</p>
+<ul>
+<li>item2vec摒弃了时间窗口的概念，认为序列中任意两个物品都相关</li>
+<li>因此在item2vec的目标函数中可以看到，其是两两物品的对数概率的和，而不仅是时间窗口内物品的对数概率之和</li>
+</ul>
+<p>局限性：</p>
+<ul>
+<li>只能利用序列型数据</li>
+<li>处理网络化数据时捉襟见肘，因此出现GraphEmbedding</li>
+</ul>
+<h4 id="GraphEmbedding"><a href="#GraphEmbedding" class="headerlink" title="GraphEmbedding"></a>GraphEmbedding</h4><p>一种对图结构中的节点进行Embedding编码的方法</p>
+<p>最终生成的Embedding向量一般包含图的结构信息及附近节点的局部相似性信息</p>
+<p>几种不同的GraphEmbedding：</p>
+<ul>
+<li><p>DeepWalk—基础的GraphEmbedding方法</p>
+<blockquote>
+<p>在由物品组成的图结构上进行随机游走，产生大量的物品序列，然后将这些物品序列作为训练样本输入word2vec进行训练，得到物品的embedding</p>
+<p>可以看作是连接序列embedding和graph embedding的过渡方法</p>
+<p>随即游走的跳转概率：DeepWalk的跳转概率就是跳转边的权重占所有相关出边权重之和的比例</p>
+</blockquote>
+</li>
+<li><p>Node2vec—同质性和结构性的权衡</p>
+<blockquote>
+<p>调整随机游走权重的方法，使GraphEmbedding结果更倾向于网络的homophily或structural equivalence</p>
+<p>homophily（同质性）：指的是距离相近节点的embedding应尽量近似</p>
+<p>structural equivalence（结构性）：结构上相似的节点的embedding应尽量相似</p>
+<p>结构性：BFS</p>
+<p>同质性：DFS</p>
+<p>同质性相同的物品很可能是同品类、同属性或者经常被一同购买的商品</p>
+<p>结构性相同的物品则很可能是爆款，最佳凑单商品等拥有类似趋势或者结构性属性的商品</p>
+</blockquote>
+</li>
+<li><p>EGES—综合性GraphEmbedding方法</p>
+<blockquote>
+<p>DeepWalk生成的Graph Embedding基础上引入补充信息</p>
+<p>引入更多的补充信息（side info）来丰富embedding信息来源，解决冷启动问题</p>
+<p>融合多种embedding的方法，降低了某类信息缺失造成的冷启动问题</p>
+</blockquote>
+</li>
+<li><p>LINE、SDNE</p>
+</li>
+</ul>
+<h3 id="Embedding与深度学习的结合"><a href="#Embedding与深度学习的结合" class="headerlink" title="Embedding与深度学习的结合"></a>Embedding与深度学习的结合</h3><h4 id="作为embedding层，高维稀疏-gt-低维稠密"><a href="#作为embedding层，高维稀疏-gt-低维稠密" class="headerlink" title="作为embedding层，高维稀疏-&gt;低维稠密"></a>作为embedding层，高维稀疏-&gt;低维稠密</h4><p>embedding的加入会拖慢整个神经网络的收敛速度，工程上放弃end2end的训练，用预训练embedding层的方式替代</p>
+<h4 id="embedding的预训练方法"><a href="#embedding的预训练方法" class="headerlink" title="embedding的预训练方法"></a>embedding的预训练方法</h4><h4 id="embedding作为推荐系统召回层的方法"><a href="#embedding作为推荐系统召回层的方法" class="headerlink" title="embedding作为推荐系统召回层的方法"></a>embedding作为推荐系统召回层的方法</h4><h3 id="局部敏感哈希"><a href="#局部敏感哈希" class="headerlink" title="局部敏感哈希"></a>局部敏感哈希</h3><p>k维的embedding空间中，物品总数为n，那么遍历计算物品和用户向量相似度的时间复杂度是O（kn）</p>
+<p>简历kd-tree进行最近邻搜索是常用的快速最近邻搜索方法，时间复杂度可以降低到O（log2n）</p>
+<p>局部敏感哈希基本思想：</p>
+<blockquote>
+<p>让相邻的点落入同一个桶，这样在进行最近邻搜索时，仅需要在一个桶内，或相邻的几个桶内的元素中进行搜索即可。</p>
+<p>如果保持每个桶中的元素个数在一个常数附近，就可以把最近邻搜索的时间复杂度降低到常数级别。</p>
+</blockquote>
 
       
     </div>
@@ -447,8 +520,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -508,6 +590,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第四章"><span class="nav-number">1.</span> <span class="nav-text">第四章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Embedding技术在推荐系统中的应用"><span class="nav-number">1.1.</span> <span class="nav-text">Embedding技术在推荐系统中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#word2vec"><span class="nav-number">1.2.</span> <span class="nav-text">word2vec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Item2vec"><span class="nav-number">1.3.</span> <span class="nav-text">Item2vec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GraphEmbedding"><span class="nav-number">1.4.</span> <span class="nav-text">GraphEmbedding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embedding与深度学习的结合"><span class="nav-number">2.</span> <span class="nav-text">Embedding与深度学习的结合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#作为embedding层，高维稀疏-gt-低维稠密"><span class="nav-number">2.1.</span> <span class="nav-text">作为embedding层，高维稀疏-&gt;低维稠密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#embedding的预训练方法"><span class="nav-number">2.2.</span> <span class="nav-text">embedding的预训练方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#embedding作为推荐系统召回层的方法"><span class="nav-number">2.3.</span> <span class="nav-text">embedding作为推荐系统召回层的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部敏感哈希"><span class="nav-number">3.</span> <span class="nav-text">局部敏感哈希</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
