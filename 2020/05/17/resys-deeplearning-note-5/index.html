@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="第五章多角度审视推荐系统">
+<meta name="description" content="第五章多角度审视推荐系统本章主要内容是以下7点：  推荐工程如何选取和处理特征？ 推荐系统召回层的主要策略有哪些？ 推荐系统的实时性的重要性体现在哪里？有哪些提高实时性的方法？ 如何根据具体场景构建推荐模型的优化目标？ 如何基于用户动机改进模型结构？ 推荐系统冷启动问题的解决方法有哪些？ 什么是”探索与利用”问题？有哪些主流的解决方法？  推荐系统的特征工程Garbabge in garbabge">
 <meta name="keywords" content="读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="推荐系统深度学习读书笔记-5">
 <meta property="og:url" content="http://yoursite.com/2020/05/17/resys-deeplearning-note-5/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="第五章多角度审视推荐系统">
+<meta property="og:description" content="第五章多角度审视推荐系统本章主要内容是以下7点：  推荐工程如何选取和处理特征？ 推荐系统召回层的主要策略有哪些？ 推荐系统的实时性的重要性体现在哪里？有哪些提高实时性的方法？ 如何根据具体场景构建推荐模型的优化目标？ 如何基于用户动机改进模型结构？ 推荐系统冷启动问题的解决方法有哪些？ 什么是”探索与利用”问题？有哪些主流的解决方法？  推荐系统的特征工程Garbabge in garbabge">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-17T08:52:59.263Z">
+<meta property="og:updated_time" content="2020-05-24T09:39:08.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐系统深度学习读书笔记-5">
-<meta name="twitter:description" content="第五章多角度审视推荐系统">
+<meta name="twitter:description" content="第五章多角度审视推荐系统本章主要内容是以下7点：  推荐工程如何选取和处理特征？ 推荐系统召回层的主要策略有哪些？ 推荐系统的实时性的重要性体现在哪里？有哪些提高实时性的方法？ 如何根据具体场景构建推荐模型的优化目标？ 如何基于用户动机改进模型结构？ 推荐系统冷启动问题的解决方法有哪些？ 什么是”探索与利用”问题？有哪些主流的解决方法？  推荐系统的特征工程Garbabge in garbabge">
 
 
 
@@ -352,7 +352,229 @@
       
 
       
-        <h3 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h3><h4 id="多角度审视推荐系统"><a href="#多角度审视推荐系统" class="headerlink" title="多角度审视推荐系统"></a>多角度审视推荐系统</h4>
+        <h3 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h3><h4 id="多角度审视推荐系统"><a href="#多角度审视推荐系统" class="headerlink" title="多角度审视推荐系统"></a>多角度审视推荐系统</h4><p>本章主要内容是以下7点：</p>
+<ul>
+<li>推荐工程如何选取和处理特征？</li>
+<li>推荐系统召回层的主要策略有哪些？</li>
+<li>推荐系统的实时性的重要性体现在哪里？有哪些提高实时性的方法？</li>
+<li>如何根据具体场景构建推荐模型的优化目标？</li>
+<li>如何基于用户动机改进模型结构？</li>
+<li>推荐系统冷启动问题的解决方法有哪些？</li>
+<li>什么是”探索与利用”问题？有哪些主流的解决方法？</li>
+</ul>
+<h5 id="推荐系统的特征工程"><a href="#推荐系统的特征工程" class="headerlink" title="推荐系统的特征工程"></a>推荐系统的特征工程</h5><p>Garbabge in garbabge out</p>
+<p>特征的本质其实是对某个行为过程相关信息的抽象表达</p>
+<p>从具体行为-&gt;抽象特征，必然涉及到信息的损失</p>
+<p>推荐系统特征工程的原则：</p>
+<blockquote>
+<p>尽可能地让特征工程抽取出的一组特征能够保留推荐系统环境以及用户行为过程中所有有用的信息，尽量摒弃冗余信息。</p>
+</blockquote>
+<p>常用特征：</p>
+<ul>
+<li><p>用户行为数据（显性反馈行为、隐形反馈行为）</p>
+<blockquote>
+<p>将代表用户行为的物品id序列转换成multi-hot向量，将其作为特征向量</p>
+<p>预先训练好物品的embedding</p>
+</blockquote>
+</li>
+<li><p>用户关系数据</p>
+<blockquote>
+<p>graphembedding方法生成物品和用户的embedding</p>
+</blockquote>
+</li>
+<li><p>属性、标签数据</p>
+<blockquote>
+<p>multi-hot编码的方式转成特征向量</p>
+<p>重要的属性类标签也可以先转换成embedding</p>
+</blockquote>
+</li>
+<li><p>内容类数据</p>
+</li>
+<li><p>上下文信息</p>
+<blockquote>
+<p>目的是尽可能的保存推荐行为发生场景的信息</p>
+</blockquote>
+</li>
+<li><p>统计类特征</p>
+<blockquote>
+<p>连续型特征，仅需经过标准化归一化等处理就可以直接输入推荐系统进行训练</p>
+</blockquote>
+</li>
+<li><p>组合类特征</p>
+<blockquote>
+<p>将不同特征进行组合后生成的新特征</p>
+</blockquote>
+</li>
+</ul>
+<p>常用的特征处理方法：</p>
+<ul>
+<li><p>连续型特征 continuous</p>
+<blockquote>
+<p>归一化：统一量纲</p>
+<p>离散化：防止连续值带来的过拟合现象以及特征分布不均匀</p>
+<p>加非线性函数：更好的捕捉特征与优化目标之间的非线性关系</p>
+</blockquote>
+</li>
+<li><p>类别性特征 categorical</p>
+<blockquote>
+<p>one-hot</p>
+<p>multi-hot</p>
+<p>embedding</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="推荐系统召回层的主要策略"><a href="#推荐系统召回层的主要策略" class="headerlink" title="推荐系统召回层的主要策略"></a>推荐系统召回层的主要策略</h5><p>排序阶段：复杂模型、多特征进行精准排序</p>
+<p>召回阶段：简单模型、少量特征进行候选集的快速筛选，减少精准排序阶段的时间开销</p>
+<p>多路召回</p>
+<h5 id="推荐系统的实时性"><a href="#推荐系统的实时性" class="headerlink" title="推荐系统的实时性"></a>推荐系统的实时性</h5><p>特征的实时性</p>
+<p>实时地收集和更新推荐模型的输入特征，使推荐系统总能使用最新的特征进行预测和推荐</p>
+<ul>
+<li><p>客户端实时特征</p>
+<blockquote>
+<p>如果客户端能够缓存session内部的行为，将其作为与上下文特征同样的实时特征传给推荐服务器，那么推荐系统就能够实时得到session内部的行为特征，进行实时推荐</p>
+</blockquote>
+</li>
+<li><p>流计算平台的准实时特征处理</p>
+<blockquote>
+<p>storm、spark streaming、flink等流计算平台</p>
+<p>将日志以流的形式进行微批处理（mini batch）</p>
+<p>分钟级别的延迟</p>
+</blockquote>
+</li>
+<li><p>分布式批处理平台的全量特征处理</p>
+<blockquote>
+<p>以HDFS为主的分布式存储系统，Spark等分布式批处理计算平台</p>
+</blockquote>
+</li>
+</ul>
+<p>模型的实时性</p>
+<ul>
+<li><p>全量更新</p>
+<blockquote>
+<p>模型利用某时间段内的所有训练样本进行训练</p>
+</blockquote>
+</li>
+<li><p>增量更新</p>
+<blockquote>
+<p>仅将新加入的样本喂给模型进行增量训练</p>
+<p>缺点：往往无法找到全局最优点</p>
+<p>工程上来说，增量更新与全局更新结合的方式，在进行了几轮增量更新后，在业务量较小的时间窗口进行全量更新，纠正模型在增量更新中积累的误差</p>
+</blockquote>
+</li>
+<li><p>在线学习</p>
+<blockquote>
+<p>微软的FOBOS、谷歌的FTRL</p>
+</blockquote>
+</li>
+<li><p>局部更新</p>
+<blockquote>
+<p>降低训练效率低的部分的更新频率，提高训练效率高的部分的更新频率</p>
+<p>GBDT+LR</p>
+<p>每天训练一次GBDT模型，固定GBDT模型之后，实时训练LR模型以快速捕捉数据整体的变化</p>
+</blockquote>
+</li>
+<li><p>客户端模型实时更新</p>
+<blockquote>
+<p>探索阶段</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="推荐系统的优化目标"><a href="#推荐系统的优化目标" class="headerlink" title="推荐系统的优化目标"></a>推荐系统的优化目标</h5><p>Youtube以观看时长作为优化目标</p>
+<p>电商类的是CVR预估模型</p>
+<p>同时优化CTR和CVR目的，阿里巴巴提出ESMM</p>
+<h5 id="推荐系统中比模型更重要的？"><a href="#推荐系统中比模型更重要的？" class="headerlink" title="推荐系统中比模型更重要的？"></a>推荐系统中比模型更重要的？</h5><p>DIEN有效的前提条件：</p>
+<p>应用场景存在兴趣的进化</p>
+<p>用户兴趣的进化过程能够被数据完整捕获</p>
+<p>推荐系统真正的银弹是对用户行为和应用场景的观察</p>
+<ul>
+<li>Netflix多图文</li>
+<li>Roku用户行为</li>
+<li>DIN改进（只收集与候选物品相关的用户历史行为记录才有价值）</li>
+</ul>
+<h5 id="冷启动解决方法"><a href="#冷启动解决方法" class="headerlink" title="冷启动解决方法"></a>冷启动解决方法</h5><p>用户冷启动：新用户注册后，没有历史行为数据时的个性化推荐</p>
+<p>物品冷启动：系统加入新物品后，没有与用户的交互记录</p>
+<p>系统冷启动：推荐系统刚布置，没有任何历史数据</p>
+<ul>
+<li><p>基于规则的冷启动</p>
+<blockquote>
+<p>领域专家对业务的洞察，根据业务设置规则</p>
+</blockquote>
+</li>
+<li><p>丰富冷启动过程中可获得用户和物品特征</p>
+<blockquote>
+<p>用户注册信息</p>
+<p>第三方DMP提供的用户信息</p>
+<p>物品的内容特征（分类、标签等）</p>
+<p>引导用户输入的冷启动特征</p>
+</blockquote>
+</li>
+<li><p>利用主动学习、迁移学习和EE机制</p>
+<blockquote>
+<p>主动学习</p>
+<p>迁移学习：在某领域知识不足的情况下，迁移其他领域的数据或知识，用于本领域的学习</p>
+<p>EE（探索与利用）机制：探索新数据、利用旧数据</p>
+<p>UCB（upper confidence bound）置信区间上界</p>
+<p>当物品平均回报高时，UCB的得分会高；</p>
+<p>同时，当物品的曝光次数低时，UCB的得分也会高</p>
+<p>使用UCB，系统会倾向于推荐 效果好 或者 冷启动 的物品</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="探索与利用"><a href="#探索与利用" class="headerlink" title="探索与利用"></a>探索与利用</h5><p>三大类方法：</p>
+<ul>
+<li><p>传统的探索与利用方法</p>
+<blockquote>
+<p>多臂老虎机问题</p>
+<p>Epsilon-Greedy、Thompson Sampling和UCB</p>
+<p>着重解决新物品的探索和利用，方法不考虑用户、上下文等因素，因此是非个性化的探索与利用方法</p>
+</blockquote>
+</li>
+<li><p>个性化的探索与利用方法</p>
+<blockquote>
+<p>考虑用户、上下文等因素</p>
+</blockquote>
+</li>
+<li><p>基于模型的探索与利用方法</p>
+</li>
+</ul>
+<p><strong>传统的探索与利用方法</strong></p>
+<p>多臂老虎机问题（Multi-Armed Bandit problem）</p>
+<blockquote>
+<p>一排老虎机，外表一模一样，但每个老虎机获得回报的期望不同，N次机会，按什么顺序选择老虎机可以收益最大化</p>
+<p>物品就是老虎机，推荐系统如何选择老虎机，才能让收益最大化</p>
+</blockquote>
+<p>Epsilon-Greedy算法</p>
+<blockquote>
+<p>选择一个【0，1】的数epsilon，每次以epsilon的概率在所有老虎机中进行随机选择，以1-epsilon的概率选择截至当前平均收益最大的老虎机，在摇臂后，根据回报值对老虎机的回报期望进行更新。</p>
+<p>以epsilon去探索，以1-epsilon去利用</p>
+</blockquote>
+<p>Thompson Sampling</p>
+<blockquote>
+<p>启发式探索与利用算法</p>
+<p>beta分布是伯努利分布的共轭先验分布，因为掷硬币的过程是标准的伯努利分布过程</p>
+<p>具体可以参考：</p>
+<p><a href="https://www.zhihu.com/question/37212823" target="_blank" rel="noopener">https://www.zhihu.com/question/37212823</a></p>
+</blockquote>
+<p>UCB</p>
+<blockquote>
+<p>经典的启发式探索与利用算法</p>
+<p>基于霍夫丁不等式推导而来</p>
+<p><a href="https://zhuanlan.zhihu.com/p/45342697" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/45342697</a></p>
+</blockquote>
+<p>无法解决引入个性化特征的问题，限制了探索与利用方法在个性化推荐场景下的使用</p>
+<p><strong>个性化的探索与利用方法</strong></p>
+<p>引入个性化信息，基于上下文的多臂老虎机算法（Contextual-Bandit Algorithm）</p>
+<p>LinUCB算法</p>
+<p><a href="https://zhuanlan.zhihu.com/p/21404922" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21404922</a></p>
+<p><strong>基于模型的探索与利用方法</strong></p>
+<p>DRN</p>
+<p><strong>在推荐系统下的应用</strong></p>
+<ul>
+<li>物品冷启动</li>
+<li>挖掘用户新兴趣</li>
+<li>增加结果多样性</li>
+</ul>
+
       
     </div>
     
@@ -522,7 +744,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章"><span class="nav-number">1.</span> <span class="nav-text">第五章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多角度审视推荐系统"><span class="nav-number">1.1.</span> <span class="nav-text">多角度审视推荐系统</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章"><span class="nav-number">1.</span> <span class="nav-text">第五章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多角度审视推荐系统"><span class="nav-number">1.1.</span> <span class="nav-text">多角度审视推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#推荐系统的特征工程"><span class="nav-number">1.1.1.</span> <span class="nav-text">推荐系统的特征工程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#推荐系统召回层的主要策略"><span class="nav-number">1.1.2.</span> <span class="nav-text">推荐系统召回层的主要策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#推荐系统的实时性"><span class="nav-number">1.1.3.</span> <span class="nav-text">推荐系统的实时性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#推荐系统的优化目标"><span class="nav-number">1.1.4.</span> <span class="nav-text">推荐系统的优化目标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#推荐系统中比模型更重要的？"><span class="nav-number">1.1.5.</span> <span class="nav-text">推荐系统中比模型更重要的？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#冷启动解决方法"><span class="nav-number">1.1.6.</span> <span class="nav-text">冷启动解决方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#探索与利用"><span class="nav-number">1.1.7.</span> <span class="nav-text">探索与利用</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
