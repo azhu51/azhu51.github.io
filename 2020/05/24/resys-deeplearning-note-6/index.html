@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="推荐系统推荐系统是什么？ 传统推荐模型整理汇总 深度推荐模型整理汇总 Embedding方法整理汇总 Word2vec和Fasttext的区别 大数据开发深入浅出Spark（一） 深入浅出Spark（二）——RDD篇 深入浅出Spark（三）——调优 数据分析在温州吃什么？？ 数学知识补录几种product的整理">
+<meta name="description" content="第六章深度学习推荐系统的工程实现推荐系统的数据流BigTable、Google File System和MapReduce 批处理大数据架构传统数据库很难处理海量数据的存储和计算问题， Google GFS和Apache HDFS的分布式存储系统诞生 MapReduce框架提出，采用分布式数据处理再Reduce的方法并行处理海量数据 流计算大数据架构Storm、Spark Streaming、Fl">
 <meta name="keywords" content="读书笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微信公众号已发文章汇总">
-<meta property="og:url" content="http://yoursite.com/2020/05/16/wx-official-accounts-article/index.html">
+<meta property="og:title" content="推荐系统深度学习读书笔记-6">
+<meta property="og:url" content="http://yoursite.com/2020/05/24/resys-deeplearning-note-6/index.html">
 <meta property="og:site_name" content="PiggyHouse">
-<meta property="og:description" content="推荐系统推荐系统是什么？ 传统推荐模型整理汇总 深度推荐模型整理汇总 Embedding方法整理汇总 Word2vec和Fasttext的区别 大数据开发深入浅出Spark（一） 深入浅出Spark（二）——RDD篇 深入浅出Spark（三）——调优 数据分析在温州吃什么？？ 数学知识补录几种product的整理">
+<meta property="og:description" content="第六章深度学习推荐系统的工程实现推荐系统的数据流BigTable、Google File System和MapReduce 批处理大数据架构传统数据库很难处理海量数据的存储和计算问题， Google GFS和Apache HDFS的分布式存储系统诞生 MapReduce框架提出，采用分布式数据处理再Reduce的方法并行处理海量数据 流计算大数据架构Storm、Spark Streaming、Fl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-19T15:18:21.395Z">
+<meta property="og:updated_time" content="2020-05-24T10:41:51.722Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微信公众号已发文章汇总">
-<meta name="twitter:description" content="推荐系统推荐系统是什么？ 传统推荐模型整理汇总 深度推荐模型整理汇总 Embedding方法整理汇总 Word2vec和Fasttext的区别 大数据开发深入浅出Spark（一） 深入浅出Spark（二）——RDD篇 深入浅出Spark（三）——调优 数据分析在温州吃什么？？ 数学知识补录几种product的整理">
+<meta name="twitter:title" content="推荐系统深度学习读书笔记-6">
+<meta name="twitter:description" content="第六章深度学习推荐系统的工程实现推荐系统的数据流BigTable、Google File System和MapReduce 批处理大数据架构传统数据库很难处理海量数据的存储和计算问题， Google GFS和Apache HDFS的分布式存储系统诞生 MapReduce框架提出，采用分布式数据处理再Reduce的方法并行处理海量数据 流计算大数据架构Storm、Spark Streaming、Fl">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/05/16/wx-official-accounts-article/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/24/resys-deeplearning-note-6/">
 
 
 
 
 
-  <title>微信公众号已发文章汇总 | PiggyHouse</title>
+  <title>推荐系统深度学习读书笔记-6 | PiggyHouse</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/16/wx-official-accounts-article/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/24/resys-deeplearning-note-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="azhu">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">微信公众号已发文章汇总</h1>
+          <h1 class="post-title" itemprop="name headline">推荐系统深度学习读书笔记-6</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-16T19:43:24+08:00">
-                2020-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-24T17:48:20+08:00">
+                2020-05-24
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/微信公众号/" itemprop="url" rel="index">
-                    <span itemprop="name">微信公众号</span>
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
                   </a>
                 </span>
 
@@ -352,16 +352,58 @@
       
 
       
-        <h3 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483826&amp;idx=1&amp;sn=a8d913229f3c5a9302653ba4ac16ff70&amp;chksm=fe5ec926c92940300e3dfe9a202955d5841697e4a4493775a07ab1520269c250021c8b962035&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">推荐系统是什么？</a></p>
-<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483831&amp;idx=1&amp;sn=d18aaf7008404896eb2c04ce19fc7ae8&amp;chksm=fe5ec923c9294035d616e488681852933ae861b4514726e270281465b5d89b5d31da483b3699&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">传统推荐模型整理汇总</a></p>
-<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483846&amp;idx=1&amp;sn=1025705af62b7b12918f295edd7255e9&amp;chksm=fe5ec952c92940442fd60a46787e36cb454718cca7e306ff65c3a5eac1eef6fe4f99457b5692&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">深度推荐模型整理汇总</a></p>
-<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483851&amp;idx=1&amp;sn=736dc10e4a32cbf155ec806a98b8ac92&amp;chksm=fe5ec95fc9294049362fbd602520e60142d51f6b3635430b032fdb6a85b1d134459de79a15a0&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Embedding方法整理汇总</a></p>
-<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483859&amp;idx=1&amp;sn=251960a6d1f8bd04675391529b142136&amp;chksm=fe5ec947c9294051c635b9bb0cf8ad1e048a7f949c11619e1d3c46e063a94843b8cd9dbee090&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Word2vec和Fasttext的区别</a></p>
-<h3 id="大数据开发"><a href="#大数据开发" class="headerlink" title="大数据开发"></a>大数据开发</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483715&amp;idx=1&amp;sn=991abbba7decd1580ad14238e6667a0b&amp;chksm=fe5ec9d7c92940c18b6523c6b781856866b8839c2905e3749d3af1242feeb04f07b8751a30a9&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">深入浅出Spark（一）</a></p>
-<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483729&amp;idx=1&amp;sn=7e82041c1919729d7f41a3baab2fd624&amp;chksm=fe5ec9c5c92940d361fdc443dfd4e58ce029c259e4ba3141d9c77b8bba4adba36c10abb4cf4b&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">深入浅出Spark（二）——RDD篇</a></p>
-<p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483812&amp;idx=1&amp;sn=389ee1663509a1ea38681ae29a3ca67c&amp;chksm=fe5ec930c9294026f4beb66b697f42616c3e757524016db65f6b5568340e80dc6e8200fe4148&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">深入浅出Spark（三）——调优</a></p>
-<h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483777&amp;idx=1&amp;sn=5fe35c398e6523f4b465b83f344e2d60&amp;chksm=fe5ec915c929400300796b9186cc71234abf4ffa54fea38d81532f12a3703b90c4a89df7b841&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">在温州吃什么？？</a></p>
-<h3 id="数学知识补录"><a href="#数学知识补录" class="headerlink" title="数学知识补录"></a>数学知识补录</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzU5NjY0ODQ0Mw==&amp;mid=2247483836&amp;idx=1&amp;sn=70ab27c0244fb7ce170f51f090b791ce&amp;chksm=fe5ec928c929403eb0bc85f5b0e487d7d64bedb2b8c4f8788dbd6bac4754b0c6eccfb8fef760&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">几种product的整理</a></p>
+        <h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><h3 id="深度学习推荐系统的工程实现"><a href="#深度学习推荐系统的工程实现" class="headerlink" title="深度学习推荐系统的工程实现"></a>深度学习推荐系统的工程实现</h3><h3 id="推荐系统的数据流"><a href="#推荐系统的数据流" class="headerlink" title="推荐系统的数据流"></a>推荐系统的数据流</h3><p>BigTable、Google File System和MapReduce</p>
+<h4 id="批处理大数据架构"><a href="#批处理大数据架构" class="headerlink" title="批处理大数据架构"></a>批处理大数据架构</h4><p>传统数据库很难处理海量数据的存储和计算问题，</p>
+<p>Google GFS和Apache HDFS的分布式存储系统诞生</p>
+<p>MapReduce框架提出，采用分布式数据处理再Reduce的方法并行处理海量数据</p>
+<h4 id="流计算大数据架构"><a href="#流计算大数据架构" class="headerlink" title="流计算大数据架构"></a>流计算大数据架构</h4><p>Storm、Spark Streaming、Flink</p>
+<p>数据处理的延迟小，数据流的灵活性非常强</p>
+<p>对于数据监控、推荐系统特征实时更新，以及推荐模型实时训练有很大帮助</p>
+<h4 id="Lambda架构"><a href="#Lambda架构" class="headerlink" title="Lambda架构"></a>Lambda架构</h4><p>数据通道从最开按时的数据收集阶段裂变成两条分支：实时流和离线处理</p>
+<p>实时流部分保持了流计算架构，保障数据实时性</p>
+<p>离线处理部分则以批处理的方式为主，保障数据的最终一致性</p>
+<p>还存在大量逻辑冗余，需要重复的进行编码工作，浪费了大量的计算资源</p>
+<h4 id="Kappa架构"><a href="#Kappa架构" class="headerlink" title="Kappa架构"></a>Kappa架构</h4><p>解决了Lambda架构的代码冗余问题</p>
+<p>Everything is streaming</p>
+<p>原始数据存储：将未经流处理的数据或日志原封不动地保存到分布式系统中</p>
+<p>数据重播：将这些原始数据按时间顺序进行重播，并用同样的流处理框架进行处理，从而完成离线状态下的数据批处理</p>
+<h4 id="大数据平台与推荐系统的整合"><a href="#大数据平台与推荐系统的整合" class="headerlink" title="大数据平台与推荐系统的整合"></a>大数据平台与推荐系统的整合</h4><p>完成特征处理后，数据的流向：</p>
+<p>1、以HDFS为代表的离线海量数据存储平台，主要负责存储离线训练用的训练样本</p>
+<p>2、以Redis为代表的在线实时特征数据库，主要负责为模型的在线服务提供实时特征</p>
+<h3 id="推荐模型离线训练之Spark-MLib"><a href="#推荐模型离线训练之Spark-MLib" class="headerlink" title="推荐模型离线训练之Spark MLib"></a>推荐模型离线训练之Spark MLib</h3><p>spark最典型的应用方式是建立在大量廉价计算节点上</p>
+<p>partition是Spark的基础处理单元</p>
+<p>将程序拆解成一个任务DAG，找到shuffle和reduce的部分</p>
+<p>shuffle：所有partition的数据必须进行洗牌后才能得到下一步的数据，比如groupbykey和join</p>
+<p>map、filter等操作不需要进行数据间的操作，可以并行处理</p>
+<p>stage内部数据高效并行计算，stage边界处进行消耗资源的shuffle操作或最终的reduce操作</p>
+<p>Random Forest的模型结构决定了其可以完全进行数据并行的模型训练</p>
+<p>GBDT的结构特点决定了数之间只能进行串行的训练</p>
+<p>分布式训练的弊端：</p>
+<ul>
+<li>全局广播的方式，每轮迭代前广播全部模型参数</li>
+<li>采用阻断式的梯度下降方式，每轮梯度下降由最慢的节点决定</li>
+<li>不支持复杂深度学习网络结构和大量可调超参</li>
+</ul>
+<h3 id="推荐模型离线训练之Parameter-Server"><a href="#推荐模型离线训练之Parameter-Server" class="headerlink" title="推荐模型离线训练之Parameter Server"></a>推荐模型离线训练之Parameter Server</h3><p>parameter server 主要作用就是并行进行梯度下降的计算，完成模型参数的更新直至最终收敛</p>
+<blockquote>
+<p>Spark用同步阻断式的并行梯度下降过程，需要等待所有节点都计算完成，最慢节点会阻断其他所有节点的梯度更新</p>
+</blockquote>
+<p>Parameter Server用 异步非阻断式，代替了 同步阻断式</p>
+<p>异步梯度更新的方式虽然加快了训练速度，但是带来了模型一致性的损失</p>
+<p>并行训练的结果与原来单点串行训练的结果是不一致的</p>
+<p>总结：</p>
+<ul>
+<li>用异步非阻断式的分布式梯度下降策略替代同步阻断式的梯度下降策略</li>
+<li>实现多server节点的架构，避免单master节点带来的带宽瓶颈和内存瓶颈</li>
+<li>使用一致性哈希、参数范围拉取、参数范围推送等工程手段实现信息的最小传递，避免广播操作带来的全局性网络阻塞和带宽浪费</li>
+</ul>
+<h3 id="推荐模型离线训练之Tensorflow"><a href="#推荐模型离线训练之Tensorflow" class="headerlink" title="推荐模型离线训练之Tensorflow"></a>推荐模型离线训练之Tensorflow</h3><p>存在依赖关系的任务节点或子图之间需要串行执行，不存在依赖关系的任务节点或者子图之间可以并行执行</p>
+<p>基于任务关系图进行任务调度和并行计算</p>
+<h3 id="上线部署"><a href="#上线部署" class="headerlink" title="上线部署"></a>上线部署</h3><p>复杂网络离线训练、生成embedding存入内存数据库、线上实现逻辑回归或浅层神经网络等轻量级模型拟合优化目标</p>
+<p>PMML（预测模型标记语言 Predictive Model Markup Language）</p>
+<p>经常作为中间媒介连接离线训练平台和线上预测平台</p>
+<h4 id="Tensorflow-Serving"><a href="#Tensorflow-Serving" class="headerlink" title="Tensorflow Serving"></a>Tensorflow Serving</h4><p>利用tf自带的模型序列化函数可将训练好的模型参数和结构保存至某路径下。</p>
+<h3 id="工程与理论权衡"><a href="#工程与理论权衡" class="headerlink" title="工程与理论权衡"></a>工程与理论权衡</h3><p>增强模型稀疏性，加入L1正则化项、采用FTRL等稀疏性强的训练方法</p>
 
       
     </div>
@@ -392,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/05/16/resys-deeplearning-note-4/" rel="next" title="推荐系统深度学习读书笔记-4">
-                <i class="fa fa-chevron-left"></i> 推荐系统深度学习读书笔记-4
+              <a href="/2020/05/17/resys-deeplearning-note-5/" rel="next" title="推荐系统深度学习读书笔记-5">
+                <i class="fa fa-chevron-left"></i> 推荐系统深度学习读书笔记-5
               </a>
             
           </div>
@@ -401,10 +443,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/05/17/resys-deeplearning-note-5/" rel="prev" title="推荐系统深度学习读书笔记-5">
-                推荐系统深度学习读书笔记-5 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -536,7 +574,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐系统"><span class="nav-number">1.</span> <span class="nav-text">推荐系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据开发"><span class="nav-number">2.</span> <span class="nav-text">大数据开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析"><span class="nav-number">3.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学知识补录"><span class="nav-number">4.</span> <span class="nav-text">数学知识补录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第六章"><span class="nav-number">1.</span> <span class="nav-text">第六章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度学习推荐系统的工程实现"><span class="nav-number">2.</span> <span class="nav-text">深度学习推荐系统的工程实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐系统的数据流"><span class="nav-number">3.</span> <span class="nav-text">推荐系统的数据流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#批处理大数据架构"><span class="nav-number">3.1.</span> <span class="nav-text">批处理大数据架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流计算大数据架构"><span class="nav-number">3.2.</span> <span class="nav-text">流计算大数据架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lambda架构"><span class="nav-number">3.3.</span> <span class="nav-text">Lambda架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kappa架构"><span class="nav-number">3.4.</span> <span class="nav-text">Kappa架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大数据平台与推荐系统的整合"><span class="nav-number">3.5.</span> <span class="nav-text">大数据平台与推荐系统的整合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐模型离线训练之Spark-MLib"><span class="nav-number">4.</span> <span class="nav-text">推荐模型离线训练之Spark MLib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐模型离线训练之Parameter-Server"><span class="nav-number">5.</span> <span class="nav-text">推荐模型离线训练之Parameter Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐模型离线训练之Tensorflow"><span class="nav-number">6.</span> <span class="nav-text">推荐模型离线训练之Tensorflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上线部署"><span class="nav-number">7.</span> <span class="nav-text">上线部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tensorflow-Serving"><span class="nav-number">7.1.</span> <span class="nav-text">Tensorflow Serving</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工程与理论权衡"><span class="nav-number">8.</span> <span class="nav-text">工程与理论权衡</span></a></li></ol></div>
             
 
           </div>
