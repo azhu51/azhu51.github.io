@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="读书笔记,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第八章深度学习推荐系统的前沿实践Facebook的深度学习推荐系统GBDT+LR  通过GBDT自动进行特征筛选和组合，生成新的离散型特征向量，再把该特征向量当做LR模型的输入，预测CTR   特征工程模型化 模型复杂性和实效性的权衡  DLRM（Deep Learning Recommender Model）  特征工程  类别、id类特征用one-hot编码生成稀疏特征（sparse feat">
+<meta name="keywords" content="读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统深度学习读书笔记-8">
+<meta property="og:url" content="http://yoursite.com/2020/05/26/resys-deeplearning-note-8/index.html">
+<meta property="og:site_name" content="PiggyHouse">
+<meta property="og:description" content="第八章深度学习推荐系统的前沿实践Facebook的深度学习推荐系统GBDT+LR  通过GBDT自动进行特征筛选和组合，生成新的离散型特征向量，再把该特征向量当做LR模型的输入，预测CTR   特征工程模型化 模型复杂性和实效性的权衡  DLRM（Deep Learning Recommender Model）  特征工程  类别、id类特征用one-hot编码生成稀疏特征（sparse feat">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-28T23:52:59.376Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="推荐系统深度学习读书笔记-8">
+<meta name="twitter:description" content="第八章深度学习推荐系统的前沿实践Facebook的深度学习推荐系统GBDT+LR  通过GBDT自动进行特征筛选和组合，生成新的离散型特征向量，再把该特征向量当做LR模型的输入，预测CTR   特征工程模型化 模型复杂性和实效性的权衡  DLRM（Deep Learning Recommender Model）  特征工程  类别、id类特征用one-hot编码生成稀疏特征（sparse feat">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/26/resys-deeplearning-note-8/">
+
+
+
+
+
+  <title>推荐系统深度学习读书笔记-8 | PiggyHouse</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PiggyHouse</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/resys-deeplearning-note-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="azhu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PiggyHouse">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">推荐系统深度学习读书笔记-8</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-26T07:53:14+08:00">
+                2020-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h3><h3 id="深度学习推荐系统的前沿实践"><a href="#深度学习推荐系统的前沿实践" class="headerlink" title="深度学习推荐系统的前沿实践"></a>深度学习推荐系统的前沿实践</h3><h4 id="Facebook的深度学习推荐系统"><a href="#Facebook的深度学习推荐系统" class="headerlink" title="Facebook的深度学习推荐系统"></a>Facebook的深度学习推荐系统</h4><p>GBDT+LR</p>
+<blockquote>
+<p>通过GBDT自动进行特征筛选和组合，生成新的离散型特征向量，再把该特征向量当做LR模型的输入，预测CTR</p>
+</blockquote>
+<ul>
+<li>特征工程模型化</li>
+<li>模型复杂性和实效性的权衡</li>
+</ul>
+<p>DLRM（Deep Learning Recommender Model）</p>
+<ul>
+<li><p>特征工程</p>
+<blockquote>
+<p>类别、id类特征用one-hot编码生成稀疏特征（sparse features）</p>
+<p>数值型连续特征（dense features）</p>
+</blockquote>
+</li>
+<li><p>Embedding层</p>
+<blockquote>
+<p>每个类别转换成one-hot向量后，用Embedding层将其转换成n的embedding向量</p>
+<p>连续型特征concat成一个特征向量</p>
+</blockquote>
+</li>
+<li><p>神经网络层（NNs层）</p>
+</li>
+<li><p>特征交互层（interactions层）</p>
+<blockquote>
+<p>将之前的embedding两两内积，目的让特征之间充分交叉，组合</p>
+</blockquote>
+</li>
+<li><p>目标拟合层</p>
+<blockquote>
+<p>sigmoid函数给出最终的点击率预估</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="Airbnb基于Embedding的实时搜索推荐系统"><a href="#Airbnb基于Embedding的实时搜索推荐系统" class="headerlink" title="Airbnb基于Embedding的实时搜索推荐系统"></a>Airbnb基于Embedding的实时搜索推荐系统</h4><p>生成短期兴趣Embedding的目的是进行房源的相似推荐，以及对用户进行session内的实时个性化推荐</p>
+<p>生成长期兴趣Embedding的目的是在最终的推荐结果中照顾到用户之前的预定偏好，推荐更容易被用户预定的个性化房源</p>
+<h5 id="基于短期兴趣的房源Embedding方法"><a href="#基于短期兴趣的房源Embedding方法" class="headerlink" title="基于短期兴趣的房源Embedding方法"></a>基于短期兴趣的房源Embedding方法</h5><p>Item2vec，把序列当做一个句子样本，开始Embedding过程</p>
+<p>skip-gram model作为embedding方法的框架，通过修改word2vec的目标函数使其逼近airbnb的业务目标</p>
+<p>正样本取自session内点击序列滑动窗口中的房源，负样本则是确定中心房源后从语料库中随机取一个</p>
+<h5 id="基于长期兴趣的用户Embedding和房源Embedding"><a href="#基于长期兴趣的用户Embedding和房源Embedding" class="headerlink" title="基于长期兴趣的用户Embedding和房源Embedding"></a>基于长期兴趣的用户Embedding和房源Embedding</h5><p>预定序列十分稀疏，无法使用跟点击行为一样的操作进行word2vec embedding操作</p>
+<ul>
+<li>预定行为的总体数量远远小于点击行为，所以预定会话集合的大小是远小于点击会话</li>
+<li>单一用户的预定行为很少，大量用户在过去1年甚至只预定过一个房源，导致很多预定会话序列长度仅为1</li>
+<li>大部分房源被预定的次数也很少，要使word2vec训练处较稳定有意义的embedding，物品最少出现5-10次，但大量房源被预定的次数少于5次，无法得到有效的embedding</li>
+</ul>
+<p>如何解决：基于某些属性规则做相似用户和相似房源的聚合</p>
+<p>用聚合数据的方式生成新的预定序列</p>
+<p>Airbnb在训练user type embedding和list type embedding时是把所有元组扁平化了，把用户属性和房源属性当做完全相同的词去训练embedding</p>
+<h5 id="Airbnb搜索词的embedding"><a href="#Airbnb搜索词的embedding" class="headerlink" title="Airbnb搜索词的embedding"></a>Airbnb搜索词的embedding</h5><p>搜索结果更接近用户动机</p>
+<h5 id="Airbnb的实时搜索排序模型及特征工程"><a href="#Airbnb的实时搜索排序模型及特征工程" class="headerlink" title="Airbnb的实时搜索排序模型及特征工程"></a>Airbnb的实时搜索排序模型及特征工程</h5><p>支持Pairwise Lambda Rank的GBDT模型</p>
+<h4 id="YouTube深度学习视频推荐系统"><a href="#YouTube深度学习视频推荐系统" class="headerlink" title="YouTube深度学习视频推荐系统"></a>YouTube深度学习视频推荐系统</h4><p>候选集生成模型（Candidate Generation Model）：召回层</p>
+<p>Youtube推荐系统的候选集生成模型是一个标准的利用Embedding预训练特征的深度神经网络模型</p>
+<p>用户向量的生成：因为输入的特征向量全部都是用户相关的特征，所以在使用某用户u的特征向量作为模型输入时，最后一层ReLu层的输出向量可以当做该用户的Embedding向量。</p>
+<h5 id="排序模型"><a href="#排序模型" class="headerlink" title="排序模型"></a>排序模型</h5><p>排序模型只需对几百个候选视频进行排序，因此可以引入更多特征进行精排</p>
+<p>time since last watch：表达的是用户观看同类视频的间隔时间</p>
+<p>previous impression：该视频已经被曝光给该用户的次数：避免同一个视频对同一个用户的持续无效曝光，尽量增加用户看到新视频的可能性</p>
+<p>对4、5特征还进行了平方和开方的处理，提升模型对特征的表达能力。</p>
+<p>候选集使用softmax作为输出层</p>
+<p>排序选择加权逻辑回归作为输出层，增加用户观看时长才是最主要的优化目标</p>
+<p>将正样本的观看时长作为其样本权重</p>
+<p>odds（机会比）：p/（1-p）</p>
+<p>变量odds本质上的物理意义就是每次曝光期望观看时长</p>
+<h5 id="训练和测试样本处理"><a href="#训练和测试样本处理" class="headerlink" title="训练和测试样本处理"></a>训练和测试样本处理</h5><ul>
+<li><p>next watch多分类问题，使用softmax进行训练，因为总共的分类有数百万之巨，因此会很低效</p>
+<p>解决方案：使用负采样，分层softmax效果不好，所以使用了负采样</p>
+</li>
+<li><p>没用原始日志，而是对每个用户提取等数量的样本</p>
+<p>因为减少高度活跃用户对模型损失的过度影响，使模型过于偏向活跃用户的行为模式，忽略数量更广大的长尾用户的体验</p>
+</li>
+<li><p>处理测试集没有采用经典的随机留一法，而是以用户最近一次观看行为作为测试集</p>
+<p>避免引入未来信息，产生与事实不符的数据穿越问题</p>
+</li>
+</ul>
+<h5 id="处理用户对新视频的偏好"><a href="#处理用户对新视频的偏好" class="headerlink" title="处理用户对新视频的偏好"></a>处理用户对新视频的偏好</h5><p>引入了Example Age特征：训练样本产生的时刻距离当前时刻的时间</p>
+<h4 id="阿里巴巴深度学习推荐系统的进化"><a href="#阿里巴巴深度学习推荐系统的进化" class="headerlink" title="阿里巴巴深度学习推荐系统的进化"></a>阿里巴巴深度学习推荐系统的进化</h4><p>LS-PLM、DIN、DIEN、MIMN</p>
+<p>ESSM，浏览-点击、点击加入购物车，多目标优化模型ESSM，建立CTR CVR模型</p>
+<p>多模态信息，多模态CTR模型</p>
+<p>阿里巴巴推荐系统模型的进化过程</p>
+<ul>
+<li><p>基础深度学习模型</p>
+<blockquote>
+<p>Embedding + MLP深度学习模型架构</p>
+</blockquote>
+</li>
+<li><p>DIN</p>
+<blockquote>
+<p>注意力机制替换基础模型的Sum Pooling操作</p>
+</blockquote>
+</li>
+<li><p>DIEN</p>
+<blockquote>
+<p>使用序列模型在用户行为历史上抽取用户兴趣并模拟用户兴趣的演化过程</p>
+</blockquote>
+</li>
+<li><p>MIMN</p>
+<blockquote>
+<p>在DIEN的基础上，将用户的兴趣细分为不同兴趣通道，进一步模拟用户在不同兴趣通道上的演化过程，生成不同兴趣通道的记忆向量，再利用注意力机制作用于多层神经网络</p>
+</blockquote>
+</li>
+</ul>
+<p>演化重点在于对用户历史行为的利用</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/25/resys-deeplearning-note-7/" rel="next" title="推荐系统深度学习读书笔记-7">
+                <i class="fa fa-chevron-left"></i> 推荐系统深度学习读书笔记-7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/29/resys-deeplearning-note-9/" rel="prev" title="推荐系统深度学习读书笔记-9">
+                推荐系统深度学习读书笔记-9 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">azhu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第八章"><span class="nav-number">1.</span> <span class="nav-text">第八章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度学习推荐系统的前沿实践"><span class="nav-number">2.</span> <span class="nav-text">深度学习推荐系统的前沿实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Facebook的深度学习推荐系统"><span class="nav-number">2.1.</span> <span class="nav-text">Facebook的深度学习推荐系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Airbnb基于Embedding的实时搜索推荐系统"><span class="nav-number">2.2.</span> <span class="nav-text">Airbnb基于Embedding的实时搜索推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基于短期兴趣的房源Embedding方法"><span class="nav-number">2.2.1.</span> <span class="nav-text">基于短期兴趣的房源Embedding方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基于长期兴趣的用户Embedding和房源Embedding"><span class="nav-number">2.2.2.</span> <span class="nav-text">基于长期兴趣的用户Embedding和房源Embedding</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Airbnb搜索词的embedding"><span class="nav-number">2.2.3.</span> <span class="nav-text">Airbnb搜索词的embedding</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Airbnb的实时搜索排序模型及特征工程"><span class="nav-number">2.2.4.</span> <span class="nav-text">Airbnb的实时搜索排序模型及特征工程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YouTube深度学习视频推荐系统"><span class="nav-number">2.3.</span> <span class="nav-text">YouTube深度学习视频推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#排序模型"><span class="nav-number">2.3.1.</span> <span class="nav-text">排序模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#训练和测试样本处理"><span class="nav-number">2.3.2.</span> <span class="nav-text">训练和测试样本处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#处理用户对新视频的偏好"><span class="nav-number">2.3.3.</span> <span class="nav-text">处理用户对新视频的偏好</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阿里巴巴深度学习推荐系统的进化"><span class="nav-number">2.4.</span> <span class="nav-text">阿里巴巴深度学习推荐系统的进化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">azhu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
